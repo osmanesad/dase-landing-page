@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dase coffee | book & brew</title>
+    <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: "Parkinsans", sans-serif;
+        background-color: #1D24FF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #ffffff;
+        position: relative;
+      }
+
+      .container {
+        text-align: center;
+        transition: filter 0.3s ease;
+      }
+
+      img.logo {
+        width: 243px;
+        margin-bottom: 70px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #ffffff;
+        width: 9ch;
+        animation: typing 2s steps(9, end) forwards, blink 0.8s infinite;
+      }
+
+      @keyframes typing {
+        from { width: 0ch; }
+        to { width: 9ch; }
+      }
+
+      @keyframes blink {
+        50% { border-color: transparent; }
+      }
+
+      .subtext {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        position: relative;
+      }
+
+      .contact-button {
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: 0.3s;
+      }
+
+      .contact-button:hover {
+        background-color: #ffffff;
+        color: #1D24FF;
+      }
+
+      .contact-button::after {
+        content: "→";
+        margin-left: 10px;
+      }
+
+      .email-form {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        color: #000000;
+        width: 90%;
+        max-width: 300px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+      }
+
+      .blurred {
+        filter: blur(8px);
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .send-btn {
+        background-color: #1D24FF;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #000000;
+      }
+    </style>
+    <script>
+      function showForm() {
+        document.querySelector(".email-form").style.display = "flex";
+        document.querySelector(".container").classList.add("blurred");
+      }
+      function closeForm() {
+        document.querySelector(".email-form").style.display = "none";
+        document.querySelector(".container").classList.remove("blurred");
+      }
+      function formatMailto(event) {
+        event.preventDefault();
+        const subject = encodeURIComponent(document.querySelector('input[name="subject"]').value);
+        const message = encodeURIComponent(document.querySelector('textarea[name="body"]').value);
+        const mailtoLink = `mailto:info@dase.coffee?subject=${subject}&body=${message}`;
+        window.location.href = mailtoLink;
+      }
+
+      function startTypingEffect() {
+        const h1 = document.querySelector("h1");
+        h1.style.animation = "none";
+        h1.offsetHeight;
+        h1.style.animation = "typing 2s steps(9, end) forwards, blink 0.8s infinite";
+      }
+
+      window.onload = function () {
+        document.querySelector(".email-form").style.display = "none";
+        setInterval(startTypingEffect, 10000);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <img src="dase_white_logo.png" class="logo" alt="dase logo" />
+      <h1>Hi there.</h1>
+      <p class="subtext">a book. a brew. a better day.</p>
+    </div>
+    <button class="contact-button" onclick="showForm()">Contact</button>
+    <div class="email-form">
+      <button class="close-btn" onclick="closeForm()">×</button>
+      <form onsubmit="formatMailto(event)">
+        <h3>Contact us</h3>
+        <p>we are dase.coffee</p>
+        <input type="email" name="from" placeholder="Your email address" required />
+        <input type="text" name="subject" placeholder="Subject" required />
+        <textarea name="body" placeholder="Your message" required></textarea>
+        <button class="send-btn" type="submit">Send Email →</button>
+      </form>
+    </div>
+  </body>
+</html>
