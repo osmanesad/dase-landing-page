@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,18 +34,18 @@
       }
 
       h1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
         margin: 0;
         white-space: nowrap;
         overflow: hidden;
         border-right: 3px solid #ffffff;
-        width: 9ch;
-        animation: typing 2s steps(9, end) forwards, blink 0.8s infinite;
+        width: 20ch;
+        animation: typing 2.2s steps(11, end) forwards, blink 0.8s infinite;
       }
 
       @keyframes typing {
         from { width: 0ch; }
-        to { width: 9ch; }
+        to { width: 11ch; }
       }
 
       @keyframes blink {
@@ -55,6 +56,25 @@
         font-size: 1.2rem;
         margin-top: 10px;
         position: relative;
+      }
+
+      .socials {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .socials a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 1.2rem;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+
+      .socials a:hover {
+        opacity: 1;
       }
 
       .contact-button {
@@ -113,7 +133,7 @@
       }
 
       .send-btn {
-        background-color: #1D24FF;
+        background-color: #003bfc;
         color: white;
         border: none;
         padding: 10px;
@@ -153,7 +173,7 @@
         const h1 = document.querySelector("h1");
         h1.style.animation = "none";
         h1.offsetHeight;
-        h1.style.animation = "typing 2s steps(9, end) forwards, blink 0.8s infinite";
+        h1.style.animation = "typing 2.2s steps(16, end) forwards, blink 0.8s infinite";
       }
 
       window.onload = function () {
@@ -165,15 +185,20 @@
   <body>
     <div class="container">
       <img src="dase_white_logo.png" class="logo" alt="dase logo" />
-      <h1>Hi there.</h1>
-      <p class="subtext">a book. a brew. a better day.</p>
+      <h1>opening soon</h1>
+      <p class="subtext">a coffee. a book. a better day.</p>
+      <div class="socials">
+        <a href="https://instagram.com/dase.coffee" target="_blank">instagram</a>
+        
+        <a href="https://linkedin.com/company/dasecoffee" target="_blank">linkedin</a>
+      </div>
     </div>
     <button class="contact-button" onclick="showForm()">Contact</button>
     <div class="email-form">
       <button class="close-btn" onclick="closeForm()">×</button>
       <form onsubmit="formatMailto(event)">
         <h3>Contact us</h3>
-        <p>we are dase.coffee</p>
+        <p>we are dasecoffee.co & .com</p>
         <input type="email" name="from" placeholder="Your email address" required />
         <input type="text" name="subject" placeholder="Subject" required />
         <textarea name="body" placeholder="Your message" required></textarea>
