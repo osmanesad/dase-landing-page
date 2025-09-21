@@ -1,15 +1,16 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dase coffee | book & brew</title>
+    <title>dase coffee | book & art</title>
     <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
     <!-- design by Osman Esad / Pixel Digital Art / osmanesad.com -->
     <!-- coffeeandbook.co / dasecoffee.co / dasecoffee.com -->
     <!-- coming soon -->
@@ -17,7 +18,7 @@
       body {
         margin: 0;
         font-family: "Parkinsans", sans-serif;
-        background-color: #0038C7;
+        background-color: #0038c7;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,12 +48,18 @@
       }
 
       @keyframes typing {
-        from { width: 0ch; }
-        to { width: 11ch; }
+        from {
+          width: 0ch;
+        }
+        to {
+          width: 11ch;
+        }
       }
 
       @keyframes blink {
-        50% { border-color: transparent; }
+        50% {
+          border-color: transparent;
+        }
       }
 
       .subtext {
@@ -97,7 +104,7 @@
 
       .contact-button:hover {
         background-color: #ffffff;
-        color: #1D24FF;
+        color: #1d24ff;
       }
 
       .contact-button::after {
@@ -127,7 +134,8 @@
         filter: blur(8px);
       }
 
-      input, textarea {
+      input,
+      textarea {
         width: 100%;
         padding: 10px;
         margin: 10px 0;
@@ -166,8 +174,12 @@
       }
       function formatMailto(event) {
         event.preventDefault();
-        const subject = encodeURIComponent(document.querySelector('input[name="subject"]').value);
-        const message = encodeURIComponent(document.querySelector('textarea[name="body"]').value);
+        const subject = encodeURIComponent(
+          document.querySelector('input[name="subject"]').value
+        );
+        const message = encodeURIComponent(
+          document.querySelector('textarea[name="body"]').value
+        );
         const mailtoLink = `mailto:info@dasecoffee.co?subject=${subject}&body=${message}`;
         window.location.href = mailtoLink;
       }
@@ -176,7 +188,8 @@
         const h1 = document.querySelector("h1");
         h1.style.animation = "none";
         h1.offsetHeight;
-        h1.style.animation = "typing 2.2s steps(16, end) forwards, blink 0.8s infinite";
+        h1.style.animation =
+          "typing 2.2s steps(16, end) forwards, blink 0.8s infinite";
       }
 
       window.onload = function () {
@@ -189,11 +202,15 @@
     <div class="container">
       <img src="dase_white_logo.png" class="logo" alt="dase logo" />
       <center><h1>opening soon</h1></center>
-      <p class="subtext">a space for coffee, culture and art.</p>
+      <p class="subtext">a space for coffee, book and art.</p>
       <div class="socials">
-        <a href="https://instagram.com/dasecoffee.co" target="_blank">instagram</a>
-        
-        <a href="https://linkedin.com/company/dasecoffee" target="_blank">linkedin</a>
+        <a href="https://instagram.com/dasecoffee.co" target="_blank"
+          >instagram</a
+        >
+
+        <a href="https://linkedin.com/company/dasecoffee" target="_blank"
+          >linkedin</a
+        >
       </div>
     </div>
     <button class="contact-button" onclick="showForm()">Contact</button>
@@ -202,7 +219,12 @@
       <form onsubmit="formatMailto(event)">
         <h3>Contact us</h3>
         <p>coffeeandbook.co & dasecoffee.com</p>
-        <input type="email" name="from" placeholder="Your email address" required />
+        <input
+          type="email"
+          name="from"
+          placeholder="Your email address"
+          required
+        />
         <input type="text" name="subject" placeholder="Subject" required />
         <textarea name="body" placeholder="Your message" required></textarea>
         <button class="send-btn" type="submit">Send Email →</button>
