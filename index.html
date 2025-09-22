@@ -1,234 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dase coffee | book & art</title>
-    <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- design by Osman Esad / Pixel Digital Art / osmanesad.com -->
-    <!-- coffeeandbook.co / dasecoffee.co / dasecoffee.com -->
-    <!-- coming soon -->
-    <style>
-      body {
-        margin: 0;
-        font-family: "Parkinsans", sans-serif;
-        background-color: #0038c7;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: #ffffff;
-        position: relative;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- design by Osman Esad / Pixel Digital Art / osmanesad.com -->
+  <!-- coffeeandbook.co / dasecoffee.co / dasecoffee.com -->
+  <!-- coming soon -->
+  <title>dase coffee | coming soon</title>
+  <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Parkinsans", sans-serif;
+      background-color: #0038c7;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
 
-      .container {
-        text-align: center;
-        transition: filter 0.3s ease;
-      }
+    .container {
+      animation: fadeIn 1.5s ease-in;
+    }
 
-      img.logo {
-        width: 243px;
-        margin-bottom: 70px;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-      h1 {
-        font-size: 24px;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 3px solid #ffffff;
-        width: 20ch;
-        animation: typing 2.2s steps(11, end) forwards, blink 0.8s infinite;
-      }
+    .language-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+    }
 
-      @keyframes typing {
-        from {
-          width: 0ch;
-        }
-        to {
-          width: 11ch;
-        }
-      }
+    .language-switcher button {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
 
-      @keyframes blink {
-        50% {
-          border-color: transparent;
-        }
-      }
+    .language-switcher button:hover {
+      background: white;
+      color: #0038c7;
+    }
 
-      .subtext {
-        font-size: 22px;
-        margin-top: 10px;
-        position: center;
-      }
+    img.logo {
+      width: 220px;
+      margin-bottom: 40px;
+    }
 
-      .socials {
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-      }
+    h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      min-height: 2.5rem;
+    }
 
-      .socials a {
-        text-decoration: none;
-        color: #ffffff;
-        font-size: 20px;
-        opacity: 0.7;
-        transition: opacity 0.3s;
-      }
+    .subtext {
+      font-size: 1rem;
+      margin-top: 10px;
+      opacity: 0.85;
+    }
 
-      .socials a:hover {
-        opacity: 1;
-      }
+    .fixed-opening {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      opacity: 0.75;
+    }
 
-      .contact-button {
-        position: absolute;
-        bottom: 10%;
-        right: 10%;
-        background-color: transparent;
-        color: #ffffff;
-        border: 2px solid #ffffff;
-        padding: 10px 20px;
-        font-size: 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        transition: 0.3s;
-      }
+    .socials {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
 
-      .contact-button:hover {
-        background-color: #ffffff;
-        color: #1d24ff;
-      }
+    .socials a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.3rem;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
 
-      .contact-button::after {
-        content: "→";
-        margin-left: 10px;
-      }
+    .socials a:hover {
+      opacity: 1;
+    }
 
-      .email-form {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 8px;
-        color: #000000;
-        width: 90%;
-        max-width: 300px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        flex-direction: column;
-        align-items: center;
-        z-index: 10;
-      }
+    .contact-button {
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      background-color: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: 0.3s;
+    }
 
-      .blurred {
-        filter: blur(8px);
-      }
+    .contact-button:hover {
+      background-color: #ffffff;
+      color: #0038c7;
+    }
 
-      input,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
+    .contact-button::after {
+      content: "→";
+      margin-left: 10px;
+    }
 
-      .send-btn {
-        background-color: #003bfc;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        width: 100%;
-      }
+    .email-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      padding: 50px 40px;
+      border-radius: 12px;
+      color: #000000;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+      z-index: 10;
+      flex-direction: column;
+      align-items: stretch;
+      box-sizing: border-box;
+    }
 
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #000000;
-      }
-    </style>
-    <script>
-      function showForm() {
-        document.querySelector(".email-form").style.display = "flex";
-        document.querySelector(".container").classList.add("blurred");
-      }
-      function closeForm() {
-        document.querySelector(".email-form").style.display = "none";
-        document.querySelector(".container").classList.remove("blurred");
-      }
-      function formatMailto(event) {
-        event.preventDefault();
-        const subject = encodeURIComponent(
-          document.querySelector('input[name="subject"]').value
-        );
-        const message = encodeURIComponent(
-          document.querySelector('textarea[name="body"]').value
-        );
-        const mailtoLink = `mailto:info@dasecoffee.co?subject=${subject}&body=${message}`;
-        window.location.href = mailtoLink;
-      }
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #000000;
+    }
 
-      function startTypingEffect() {
-        const h1 = document.querySelector("h1");
-        h1.style.animation = "none";
-        h1.offsetHeight;
-        h1.style.animation =
-          "typing 2.2s steps(16, end) forwards, blink 0.8s infinite";
-      }
+    .email-form input,
+    .email-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
 
-      window.onload = function () {
-        document.querySelector(".email-form").style.display = "none";
-        setInterval(startTypingEffect, 10000);
-      };
-    </script>
-  </head>
-  <body>
-    <div class="container">
-      <img src="dase_white_logo.png" class="logo" alt="dase logo" />
-      <center><h1>opening soon</h1></center>
-      <p class="subtext">a space for coffee, book and art.</p>
-      <div class="socials">
-        <a href="https://instagram.com/dasecoffee.co" target="_blank"
-          >instagram</a
-        >
+    .send-btn {
+      background-color: #0038c7;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 6px;
+    }
 
-        <a href="https://linkedin.com/company/dasecoffee" target="_blank"
-          >linkedin</a
-        >
-      </div>
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 18px; }
+      .subtext, .socials a, .fixed-opening { font-size: 14px; }
+      img.logo { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="language-switcher">
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('tr')">TR</button>
+  </div>
+
+  <div class="container">
+    <img src="dase_white_logo.png" alt="dase logo" class="logo" />
+    <h1></h1>
+    <p class="subtext"></p>
+    <p class="fixed-opening"></p>
+    <div class="socials">
+      <a href="https://instagram.com/dasecoffee.co" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/company/dasecoffee" target="_blank"><i class="fab fa-linkedin-in"></i></a>
     </div>
-    <button class="contact-button" onclick="showForm()">Contact</button>
-    <div class="email-form">
-      <button class="close-btn" onclick="closeForm()">×</button>
-      <form onsubmit="formatMailto(event)">
-        <h3>Contact us</h3>
-        <p>coffeeandbook.co & dasecoffee.com</p>
-        <input
-          type="email"
-          name="from"
-          placeholder="Your email address"
-          required
-        />
-        <input type="text" name="subject" placeholder="Subject" required />
-        <textarea name="body" placeholder="Your message" required></textarea>
-        <button class="send-btn" type="submit">Send Email →</button>
-      </form>
-    </div>
-  </body>
+  </div>
+
+  <button class="contact-button" onclick="showForm()"></button>
+
+  <div class="email-form">
+    <button class="close-btn" onclick="closeForm()">×</button>
+    <form onsubmit="formatMailto(event)">
+      <h3></h3>
+      <p style="font-size: 0.9rem; opacity: 0.7;">info@dasecoffee.co</p>
+      <input type="email" name="from" placeholder="Your email address" required />
+      <input type="text" name="subject" placeholder="Subject" required />
+      <textarea name="body" placeholder="Your message" required></textarea>
+      <button class="send-btn" type="submit"></button>
+    </form>
+  </div>
+
+  <footer>© 2025 dase coffee — beyoğlu, istanbul</footer>
+
+  <script>
+    let currentLang = 'en';
+
+    const slogans = {
+      en: [
+        "a better brew is coming",
+        "not just coffee. a culture.",
+        "a quiet corner is on the way",
+        "books. brews. beyoğlu.",
+        "almost ready to pause",
+        "a place to sip and reflect",
+        "coffee. art. stillness.",
+        "brewing stories and spaces"
+      ],
+      tr: [
+        "daha iyi bir demleme geliyor",
+        "sadece kahve değil. bir kültür.",
+        "sessiz bir köşe yakında",
+        "kitaplar. kahveler. beyoğlu.",
+        "neredeyse hazırız",
+        "bir yudumluk huzur",
+        "kahve. sanat. dinginlik.",
+        "hikâyeleri ve alanları demliyoruz"
+      ]
+    };
+
+    let sloganIndex = 0;
+
+    function changeSlogan() {
+      const h1 = document.querySelector("h1");
+      h1.textContent = slogans[currentLang][sloganIndex];
+      sloganIndex = (sloganIndex + 1) % slogans[currentLang].length;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      sloganIndex = 0;
+      changeSlogan();
+      updateStaticText();
+    }
+
+    function updateStaticText() {
+  document.querySelector(".subtext").textContent =
+    currentLang === "en"
+      ? "a space for coffee, books & art"
+      : "kahve, kitap ve sanat için bir alan";
+
+  document.querySelector(".fixed-opening").textContent =
+    currentLang === "en"
+      ? "opening november 2025 in beyoğlu, istanbul"
+      : "kasım 2025'te beyoğlu'nda açılıyor";
+
+  document.querySelector(".contact-button").textContent =
+    currentLang === "en" ? "Contact" : "İletişim";
+
+  document.querySelector(".send-btn").textContent =
+    currentLang === "en" ? "Send Email →" : "Mail Gönder →";
+
+  document.querySelector(".email-form h3").textContent =
+    currentLang === "en" ? "Get in touch" : "İletişime geç";
+
+  // 🎯 Yeni eklenen placeholder çevirileri:
+  document.querySelector('input[name="from"]').placeholder =
+    currentLang === "en" ? "Your email address" : "E-posta adresiniz";
+
+  document.querySelector('input[name="subject"]').placeholder =
+    currentLang === "en" ? "Subject" : "Konu";
+
+  document.querySelector('textarea[name="body"]').placeholder =
+    currentLang === "en" ? "Your message" : "Mesajınız";
+}
+
+
+    function showForm() {
+      document.querySelector(".email-form").style.display = "flex";
+    }
+
+    function closeForm() {
+      document.querySelector(".email-form").style.display = "none";
+    }
+
+    function formatMailto(event) {
+      event.preventDefault();
+      const subject = encodeURIComponent(document.querySelector('input[name="subject"]').value);
+      const message = encodeURIComponent(document.querySelector('textarea[name="body"]').value);
+      window.location.href = `mailto:info@dasecoffee.co?subject=${subject}&body=${message}`;
+    }
+
+    window.onload = function () {
+      setLanguage('en');
+      setInterval(changeSlogan, 7000);
+    };
+  </script>
+</body>
 </html>
