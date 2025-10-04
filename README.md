@@ -1,2 +1,2 @@
 # dase-landing-page
-dase.coffee
+dasecoffee.co
