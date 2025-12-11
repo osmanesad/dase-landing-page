@@ -10,28 +10,35 @@
   <meta property="og:description" content="a space for coffee, books & art. opening 2026 in beyoğlu.">
   <meta property="og:image" content="https://dasecoffee.co/dase_logo.png">
   <meta property="og:url" content="https://dasecoffee.co">
-  <meta name="theme-color" content="#A64B3E">
+  <meta name="theme-color" content="#3E2B26">
 
   <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <style>
-    /* --- YENİ "FERAH & CANLI" PALET --- */
+    /* --- PINTEREST BOARD PALETİ (Industrial Library) --- */
     :root {
-      /* Arka plan için değişken değil, gradient kullanacağız */
-      --text-color: #5E2C25;     /* Logodaki koyu kahve/kiremit (Okunabilirlik için koyu) */
-      --accent-color: #BF4F3E;   /* DAHA CANLI Kiremit Rengi (Canlılık için) */
+      /* Ceviz Ağacı (Yazılar için) */
+      --text-color: #3E2B26; 
+      
+      /* Vintage Kiremit (Vurgular için - Panodaki tuğla tonu) */
+      --accent-color: #B04A3B; 
+      
+      /* Sıcak Sıva / Ham Beton (Arka plan tonları) */
+      --bg-light: #EBE8E1; 
+      --bg-dark: #D6D2C9;
+      
       --white: #ffffff;
-      --light-bg: #F9F7F2;       /* Sıcak, kırık beyaz kağıt tonu */
     }
 
     body {
       margin: 0;
       font-family: "Parkinsans", sans-serif;
       
-      /* TEK DÜZE RENK YERİNE IŞIKLI GRADIENT */
-      background: radial-gradient(circle at center, #ffffff 0%, #EDE8E1 100%);
+      /* SIVALI DUVAR ETKİSİ İÇİN GRADIENT */
+      /* Merkezden dışa doğru hafif koyulaşan, derinlikli bir zemin */
+      background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
       
       color: var(--text-color);
       display: flex;
@@ -43,7 +50,7 @@
       overflow-x: hidden;
     }
 
-    /* --- SANATSAL KAĞIT DOKUSU --- */
+    /* --- HAM DOKU (PLASTER TEXTURE) --- */
     .texture-overlay {
       position: fixed;
       top: 0;
@@ -52,14 +59,14 @@
       height: 100%;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.5; /* Açık zeminde dokunun belli olması için opaklık arttı */
-      /* mix-blend-mode: multiply; -> Koyu noktacıklar oluşturur */
-      mix-blend-mode: multiply; 
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+      opacity: 0.7; /* Dokuyu belirginleştirdim */
+      mix-blend-mode: multiply; /* Zemine yedir */
+      /* baseFrequency ayarını düşürerek daha "kaba/sıvalı" bir görünüm elde ettik */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
     }
 
     .container {
-      animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      animation: fadeIn 1.5s ease-out;
       z-index: 2;
       position: relative;
       padding: 20px;
@@ -71,8 +78,8 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
     .language-switcher {
@@ -86,111 +93,111 @@
 
     .language-switcher button {
       background: transparent;
-      border: 1px solid rgba(94, 44, 37, 0.3); /* Yazı renginin şeffaf hali */
+      border: 1px solid rgba(62, 43, 38, 0.25);
       color: var(--text-color);
       padding: 4px 10px;
       cursor: pointer;
       font-size: 0.85rem;
-      border-radius: 6px;
+      border-radius: 4px; /* Daha köşeli, endüstriyel his */
       transition: 0.3s;
       font-weight: 500;
     }
 
     .language-switcher button:hover {
-      background: var(--accent-color);
-      color: white;
-      border-color: var(--accent-color);
+      background: var(--text-color);
+      color: var(--bg-light);
+      border-color: var(--text-color);
     }
 
     img.logo {
       width: 220px;
-      margin-bottom: 30px;
-      /* Eğer logon beyazsa, bu kodla onu KOYU KİREMİT rengine çeviriyoruz */
-      /* Bu filtre beyaz PNG'yi #5E2C25 rengine yaklaştırır */
-      filter: invert(18%) sepia(35%) saturate(1200%) hue-rotate(320deg) brightness(95%) contrast(90%);
-      opacity: 1;
+      margin-bottom: 35px;
+      /* Logoyu KİREMİT rengine çeviren filtre */
+      /* Eğer logon zaten renkliyse veya siyahsa bu satırı sil */
+      filter: invert(33%) sepia(48%) saturate(2035%) hue-rotate(336deg) brightness(91%) contrast(92%);
+      opacity: 0.95;
     }
-    
-    /* Eğer logon zaten siyahsa üstteki filter satırını silmelisin */
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.9rem;
       margin: 0;
       min-height: 2.5rem;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       line-height: 1.1;
-      color: var(--accent-color); /* Başlık CANLI renk olsun */
+      color: var(--text-color); 
       font-weight: 700;
     }
 
     .subtext {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       margin-top: 15px;
-      opacity: 0.9;
+      opacity: 0.85;
       font-weight: 400;
       color: var(--text-color);
+      letter-spacing: 0.3px;
     }
 
     .fixed-opening {
-      margin-top: 10px;
-      font-size: 0.85rem;
+      margin-top: 12px;
+      font-size: 0.8rem;
       opacity: 0.6;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px; /* Harf aralarını açarak daha premium durmasını sağladık */
       text-transform: uppercase;
       font-weight: 600;
       color: var(--text-color);
     }
 
     .socials {
-      margin-top: 35px;
+      margin-top: 40px;
       display: flex;
       justify-content: center;
-      gap: 28px;
+      gap: 30px;
     }
 
     .socials a {
       color: var(--text-color);
       text-decoration: none;
-      font-size: 1.5rem;
-      opacity: 0.6;
+      font-size: 1.4rem;
+      opacity: 0.5;
       transition: all 0.3s;
     }
 
     .socials a:hover {
       opacity: 1;
       color: var(--accent-color);
-      transform: translateY(-3px) scale(1.1);
+      transform: translateY(-3px);
     }
 
-    /* --- BUTON: SAYFAYI CANLANDIRAN ÖĞE --- */
+    /* --- BUTON: CEVİZ & KİREMİT KOMBİNASYONU --- */
     .contact-button {
       margin-top: 50px;
-      background-color: var(--accent-color); /* İçi Dolu Canlı Renk */
-      color: #ffffff;
-      border: none;
-      padding: 16px 36px;
-      font-size: 1.05rem;
+      background-color: transparent;
+      color: var(--text-color);
+      border: 2px solid var(--text-color); /* Kalın çerçeve */
+      padding: 14px 34px;
+      font-size: 1rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Yaylanma efekti */
-      border-radius: 50px;
+      transition: all 0.3s ease;
+      border-radius: 6px; /* Endüstriyel tasarım için biraz daha köşeli */
       z-index: 10;
       font-weight: 600;
-      box-shadow: 0 10px 25px rgba(191, 79, 62, 0.3); /* Renkli gölge (Glow) */
       font-family: "Parkinsans", sans-serif;
+      letter-spacing: 0.5px;
     }
 
     .contact-button:hover {
-      background-color: #A33B2B; /* Hover'da hafif koyulaşır */
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(191, 79, 62, 0.5); /* Gölge artar */
+      background-color: var(--text-color);
+      color: var(--bg-light);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(62, 43, 38, 0.2);
     }
 
     .contact-button::after {
       content: "→";
-      margin-left: 8px;
+      margin-left: 10px;
       transition: transform 0.3s;
     }
     
@@ -198,25 +205,25 @@
       transform: translateX(5px);
     }
 
-    /* --- FORM STİLLERİ --- */
+    /* --- FORM TASARIMI (Kağıt & Mürekkep Hissi) --- */
     .email-form {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #ffffff;
+      background: #F4F1ED; /* Eski kağıt rengi */
       padding: 45px 40px;
-      border-radius: 20px;
+      border-radius: 8px;
       color: var(--text-color);
       width: 90%;
       max-width: 420px;
-      box-shadow: 0px 25px 80px rgba(94, 44, 37, 0.25); /* Renkli gölge */
+      box-shadow: 0px 20px 70px rgba(0, 0, 0, 0.2);
       z-index: 20;
       flex-direction: column;
       align-items: stretch;
       box-sizing: border-box;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(62, 43, 38, 0.1);
     }
 
     .close-btn {
@@ -225,27 +232,26 @@
       right: 20px;
       background: none;
       border: none;
-      font-size: 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
       color: var(--text-color);
-      opacity: 0.4;
+      opacity: 0.5;
       transition: 0.3s;
-      line-height: 1;
     }
     
-    .close-btn:hover { opacity: 1; color: var(--accent-color); transform: rotate(90deg); }
+    .close-btn:hover { opacity: 1; color: var(--accent-color); }
 
-    .email-form h3 { margin-top: 0; margin-bottom: 5px; font-size: 1.6rem; text-align: left; color: var(--accent-color); font-weight: 700; }
+    .email-form h3 { margin-top: 0; margin-bottom: 5px; font-size: 1.5rem; text-align: left; color: var(--accent-color); font-weight: 700; letter-spacing: -0.5px; }
     
     .email-form input,
     .email-form textarea {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       margin-top: 12px;
-      border: 2px solid #EEEAE4;
-      background-color: #FCFBFA;
-      border-radius: 10px;
-      font-size: 1rem;
+      border: 1px solid #D1CDC7;
+      background-color: #ffffff;
+      border-radius: 4px;
+      font-size: 0.95rem;
       box-sizing: border-box;
       font-family: "Parkinsans", sans-serif;
       transition: 0.3s;
@@ -262,34 +268,35 @@
       background-color: var(--accent-color);
       color: white;
       border: none;
-      padding: 16px;
+      padding: 15px;
       margin-top: 25px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
-      border-radius: 10px;
+      border-radius: 4px;
       font-weight: 600;
       transition: 0.3s;
-      box-shadow: 0 5px 15px rgba(191, 79, 62, 0.2);
+      letter-spacing: 0.5px;
     }
 
-    .send-btn:hover { background-color: #A33B2B; transform: translateY(-2px); }
+    .send-btn:hover { background-color: #963A2D; }
 
     footer {
       position: absolute;
       bottom: 25px;
       font-size: 0.75rem;
-      opacity: 0.5;
+      opacity: 0.4;
       width: 100%;
       text-align: center;
       z-index: 2;
-      letter-spacing: 1px;
-      font-weight: 500;
+      letter-spacing: 1.5px;
+      font-weight: 600;
       color: var(--text-color);
+      text-transform: uppercase;
     }
 
     @media (max-width: 500px) {
-      h1 { font-size: 1.6rem; }
-      .subtext { font-size: 1.05rem; }
+      h1 { font-size: 1.7rem; }
+      .subtext { font-size: 1rem; }
       img.logo { width: 190px; }
       .socials { gap: 30px; }
       .container { padding-bottom: 60px; }
