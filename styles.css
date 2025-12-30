@@ -544,3 +544,82 @@ section.alt{
   cursor: pointer;
   display: block;
 }
+
+
+/* Taller product cards + inline carousel */
+.card.card-tall{
+  display: flex;
+  flex-direction: column;
+  min-height: 420px; /* kartı uzatır */
+}
+
+.media{
+   position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+
+  padding-inline: 18px;   /* ← YANLARDAN KISALTMA */
+  padding-top: 12px;      /* üstten biraz nefes */
+  padding-bottom: 12px;
+}
+
+.product-img{
+  width: 100%;
+  height: 300px;          /* ↑ UZUNLUK ARTTI */
+  object-fit: cover;      /* kontrollü kırpma */
+  display: block;
+  border-radius: 12px;
+}
+
+.media-nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255,255,255,.55);
+  background: rgba(20,24,29,.35);
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity .16s, background .16s;
+}
+
+.media:hover .media-nav{ opacity: 1; }
+.media-nav:hover{ background: rgba(20,24,29,.55); }
+
+.media-nav.prev{ left: 10px; }
+.media-nav.next{ right: 10px; }
+
+.media-dots{
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.media-dots .dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(20,24,29,.12);
+}
+
+.media-dots .dot.active{
+  background: rgba(255,255,255,.92);
+}
+
+/* Kart içeriği aşağıda daha dengeli dursun */
+.card-top{ margin-top: 2px; }
+.card-actions{ margin-top: auto; } /* butonları alta iter */

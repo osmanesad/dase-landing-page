@@ -1,6 +1,6 @@
-// app.js — single file: content + render + whatsapp request + gallery
-// Clean version: no inline onclick, single lightbox source of truth.
-// Drop 001: tote + mug + notebook + sticker cover & galleries wired.
+// app.js — single file: content + render + whatsapp request + inline carousel
+// Drop 001: tote + mug + notebook + sticker. No fullscreen lightbox (no screen takeover).
+// Image navigation happens on the product card itself.
 
 let currentLang = "tr"; // default TR on load
 
@@ -183,19 +183,16 @@ const GALLERIES = {
     "assets/drop-001/tote/canta3.png",
     "assets/drop-001/tote/canta4.png",
   ],
-
   mug: [
     "assets/drop-001/mug/bardak1.png",
     "assets/drop-001/mug/bardak2.png",
     "assets/drop-001/mug/bardak3.png",
   ],
-
   notebook: [
     "assets/drop-001/notebook/defter1.png",
     "assets/drop-001/notebook/defter2.png",
     "assets/drop-001/notebook/defter3.png",
   ],
-
   sticker: [
     "assets/drop-001/sticker/sticker1.png",
     "assets/drop-001/sticker/sticker2.png",
@@ -220,6 +217,32 @@ function whatsappUrlForProduct(productKey) {
   return `https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`;
 }
 
+/* ---------- Inline Carousel State ---------- */
+
+const carouselIndexByProductId = Object.create(null);
+
+function galleryListForProduct(p) {
+  if (!p.galleryKey) return null;
+  const list = GALLERIES[p.galleryKey];
+  return Array.isArray(list) && list.length ? list : null;
+}
+
+function currentCarouselIndex(p) {
+  const list = galleryListForProduct(p);
+  if (!list) return 0;
+  const idx = carouselIndexByProductId[p.id];
+  if (typeof idx !== "number") return 0;
+  return Math.max(0, Math.min(idx, list.length - 1));
+}
+
+function setCarouselIndex(p, nextIndex) {
+  const list = galleryListForProduct(p);
+  if (!list) return 0;
+  const clamped = ((nextIndex % list.length) + list.length) % list.length;
+  carouselIndexByProductId[p.id] = clamped;
+  return clamped;
+}
+
 /* ---------- Rendering ---------- */
 
 function renderProducts() {
@@ -231,25 +254,86 @@ function renderProducts() {
 
   PRODUCTS.forEach((p) => {
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card card-tall";
 
-    // Media (image if cover exists, otherwise thumb)
-    if (p.cover) {
-      const img = document.createElement("img");
+    // Media wrapper
+    const media = document.createElement("div");
+    media.className = "media";
+
+    const list = galleryListForProduct(p);
+
+    // Image
+    const img = document.createElement("img");
+    img.className = "product-img";
+    img.loading = "lazy";
+    img.alt = (p.coverAlt && p.coverAlt[currentLang]) || "dase coffee product";
+
+    if (list) {
+      const idx = currentCarouselIndex(p);
+      img.src = list[idx];
+      img.addEventListener("click", () => {
+        const next = setCarouselIndex(p, currentCarouselIndex(p) + 1);
+        img.src = list[next];
+        updateDots(dots, list.length, next);
+      });
+    } else if (p.cover) {
       img.src = p.cover;
-      img.className = "product-img";
-      img.loading = "lazy";
-      img.alt =
-        (p.coverAlt && p.coverAlt[currentLang]) || "dase coffee product";
-      if (p.galleryKey && Array.isArray(GALLERIES[p.galleryKey])) {
-        img.addEventListener("click", () => openGallery(p.galleryKey, 0));
-      }
-      card.appendChild(img);
+      img.style.cursor = "default";
     } else {
+      // fallback: no image -> show thumb
       const thumb = document.createElement("div");
       thumb.className = "thumb";
       thumb.setAttribute("aria-hidden", "true");
-      card.appendChild(thumb);
+      media.appendChild(thumb);
+      card.appendChild(media);
+      // continue card body
+    }
+
+    if (!media.firstChild) {
+      media.appendChild(img);
+
+      // Nav + dots (only if gallery exists)
+      let dots = null;
+
+      if (list && list.length > 1) {
+        const prevBtn = document.createElement("button");
+        prevBtn.className = "media-nav prev";
+        prevBtn.type = "button";
+        prevBtn.setAttribute("aria-label", "previous image");
+        prevBtn.textContent = "‹";
+
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "media-nav next";
+        nextBtn.type = "button";
+        nextBtn.setAttribute("aria-label", "next image");
+        nextBtn.textContent = "›";
+
+        prevBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const next = setCarouselIndex(p, currentCarouselIndex(p) - 1);
+          img.src = list[next];
+          updateDots(dots, list.length, next);
+        });
+
+        nextBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const next = setCarouselIndex(p, currentCarouselIndex(p) + 1);
+          img.src = list[next];
+          updateDots(dots, list.length, next);
+        });
+
+        media.appendChild(prevBtn);
+        media.appendChild(nextBtn);
+
+        dots = document.createElement("div");
+        dots.className = "media-dots";
+        media.appendChild(dots);
+        updateDots(dots, list.length, currentCarouselIndex(p));
+      }
+
+      card.appendChild(media);
     }
 
     const top = document.createElement("div");
@@ -296,6 +380,16 @@ function renderProducts() {
 
     grid.appendChild(card);
   });
+}
+
+function updateDots(container, total, activeIndex) {
+  if (!container) return;
+  container.innerHTML = "";
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement("span");
+    dot.className = "dot" + (i === activeIndex ? " active" : "");
+    container.appendChild(dot);
+  }
 }
 
 function setActiveLangButton() {
@@ -390,79 +484,6 @@ function formatMailto(event) {
 
   window.location.href = `mailto:info@dasecoffee.co?subject=${subject}&body=${body}`;
 }
-
-/* ---------- Lightbox Gallery (single source of truth) ---------- */
-
-let activeGallery = [];
-let galleryIndex = 0;
-
-function ensureLightbox() {
-  let lb = document.getElementById("lightbox");
-  if (lb) return lb;
-
-  lb = document.createElement("div");
-  lb.id = "lightbox";
-  lb.className = "lightbox hidden";
-  lb.innerHTML = `
-    <button class="lightbox-close" type="button" aria-label="close">×</button>
-    <button class="lightbox-nav prev" type="button" aria-label="previous">‹</button>
-    <img id="lightboxImage" src="" alt="dase coffee gallery image" />
-    <button class="lightbox-nav next" type="button" aria-label="next">›</button>
-  `;
-  document.body.appendChild(lb);
-
-  // Close when clicking backdrop
-  lb.addEventListener("click", (e) => {
-    if (e.target === lb) closeLightbox();
-  });
-
-  lb.querySelector(".lightbox-close")?.addEventListener("click", closeLightbox);
-  lb.querySelector(".lightbox-nav.next")?.addEventListener("click", nextImage);
-  lb.querySelector(".lightbox-nav.prev")?.addEventListener("click", prevImage);
-
-  return lb;
-}
-
-function openGallery(key, index = 0) {
-  const list = GALLERIES[key];
-  if (!Array.isArray(list) || list.length === 0) return;
-
-  activeGallery = list;
-  galleryIndex = Math.max(0, Math.min(index, activeGallery.length - 1));
-
-  const lb = ensureLightbox();
-  const img = document.getElementById("lightboxImage");
-  img.src = activeGallery[galleryIndex];
-  lb.classList.remove("hidden");
-}
-
-function closeLightbox() {
-  document.getElementById("lightbox")?.classList.add("hidden");
-}
-
-function nextImage() {
-  if (!activeGallery.length) return;
-  galleryIndex = (galleryIndex + 1) % activeGallery.length;
-  const img = document.getElementById("lightboxImage");
-  if (img) img.src = activeGallery[galleryIndex];
-}
-
-function prevImage() {
-  if (!activeGallery.length) return;
-  galleryIndex =
-    (galleryIndex - 1 + activeGallery.length) % activeGallery.length;
-  const img = document.getElementById("lightboxImage");
-  if (img) img.src = activeGallery[galleryIndex];
-}
-
-document.addEventListener("keydown", (e) => {
-  const lb = document.getElementById("lightbox");
-  if (!lb || lb.classList.contains("hidden")) return;
-
-  if (e.key === "Escape") closeLightbox();
-  if (e.key === "ArrowRight") nextImage();
-  if (e.key === "ArrowLeft") prevImage();
-});
 
 /* ---------- Init + event wiring ---------- */
 
