@@ -3,123 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dase coffee</title>
+  <title>dase coffee — archive</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <!-- Language -->
-  <div class="language-switcher" aria-label="Language switcher">
-    <button type="button" id="btnEN">EN</button>
-    <button type="button" id="btnTR">TR</button>
+  <div class="lang-switch mono">
+    <button type="button" id="btnEN" class="lang-btn">EN</button>
+    <span class="sep">/</span>
+    <button type="button" id="btnTR" class="lang-btn">TR</button>
   </div>
 
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <div class="hero-inner">
-      <div class="brand" aria-label="dase coffee">
-        <div class="brand-mark">dase coffee</div>
-        <div class="brand-sub" id="brandSub"></div>
+  <main class="container">
+    
+    <header class="site-header">
+      <div class="brand">
+        <h1 class="brand-name">dase coffee.</h1>
+        <div class="brand-meta mono" id="brandSub"></div>
       </div>
-
-      <p class="hero-lead" id="heroLead"></p>
-
-      <div class="cta-row">
-        <a class="btn primary" href="#shop" id="ctaPrimary"></a>
-        <a class="btn" href="#about" id="ctaSecondary"></a>
+      <div class="status-badge mono">
+        <span class="status-dot"></span>
+        <span>Drop 001 Active</span>
       </div>
+    </header>
 
-      <!-- Accent band (indigo, %10 doz) -->
-      <div class="hero-accent" id="heroAccent"></div>
-
-      <div class="socials">
-        <a href="https://instagram.com/dasecoffee.co" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://linkedin.com/company/dasecoffee" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
+    <section class="hero">
+      <p class="hero-statement" id="heroLead"></p>
+      <div class="hero-footer mono">
+        <span id="heroAccent"></span>
+        <a href="#shop" class="scroll-down">↓ <span id="scrollHint"></span></a>
       </div>
-    </div>
-
-    <div class="scroll-hint">
-      <span>↓</span>
-      <div id="scrollHint"></div>
-    </div>
-  </header>
-
-  <main class="page">
-    <!-- SHOP -->
-    <section id="shop">
-      <div class="section-head">
-        <h2 class="section-title" id="shopTitle"></h2>
-        <p class="section-lead" id="shopLead"></p>
-      </div>
-
-      <div class="grid" id="productGrid"></div>
     </section>
 
-    <!-- ABOUT (alt background for rhythm) -->
-    <section id="about" class="alt">
-      <div class="section-head">
-        <h2 class="section-title" id="aboutTitle"></h2>
-        <p class="section-lead" id="aboutLead"></p>
+    <section id="shop" class="catalog">
+      <div class="catalog-header mono">
+        <span id="shopTitle"></span>
+        <span>(Index 001)</span>
+      </div>
+      
+      <div id="productGrid" class="catalog-grid"></div>
+    </section>
+
+    <section id="about" class="manifesto">
+      <div class="manifesto-head">
+        <h2 class="serif-title" id="aboutTitle"></h2>
+        <p class="body-text" id="aboutLead"></p>
       </div>
 
-      <div class="split">
-        <div class="panel">
-          <h3 class="panel-title" id="aboutPanelLeftTitle"></h3>
-          <p class="panel-body" id="aboutPanelLeftBody"></p>
+      <div class="manifesto-grid">
+        <div class="m-col">
+          <h3 class="mono-title" id="aboutPanelLeftTitle"></h3>
+          <p class="body-text" id="aboutPanelLeftBody"></p>
         </div>
-
-        <div class="panel">
-          <h3 class="panel-title" id="aboutPanelRightTitle"></h3>
-          <ul class="list" id="aboutList"></ul>
+        <div class="m-col">
+          <h3 class="mono-title" id="aboutPanelRightTitle"></h3>
+          <ul class="clean-list mono" id="aboutList"></ul>
         </div>
       </div>
     </section>
 
-    <!-- ORDERING -->
-    <section id="ordering">
-      <div class="section-head">
-        <h2 class="section-title" id="orderTitle"></h2>
-        <p class="section-lead" id="orderLead"></p>
-      </div>
-
-      <div class="panel">
-        <ul class="list" id="orderList"></ul>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-row">
-        <div class="footer-brand" id="footerBrand"></div>
-        <div class="footer-links">
-          <a href="https://instagram.com/dasecoffee.co" target="_blank" rel="noopener noreferrer" id="footerIG"></a>
-          <button class="linklike" type="button" id="footerContact"></button>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="f-col">
+          <h3 class="mono-title" id="orderTitle"></h3>
+          <p class="body-text" id="orderLead"></p>
+          <ul class="clean-list mono" id="orderList"></ul>
+        </div>
+        <div class="f-col align-right">
+          <button type="button" class="btn-contact-large" id="footerContact">
+            <span id="contactBtn"></span> →
+          </button>
         </div>
       </div>
-      <div class="footer-note" id="footerNote"></div>
+
+      <div class="footer-bottom mono">
+        <div class="f-meta">
+          <span id="footerBrand"></span>
+          <span class="divider">—</span>
+          <span id="footerNote"></span>
+        </div>
+        <div class="socials">
+          <a href="https://instagram.com/dasecoffee.co" target="_blank" id="footerIG"></a>
+        </div>
+      </div>
     </footer>
+
   </main>
 
-  <!-- Floating contact -->
-  <button class="contact-button" type="button" id="contactBtn"></button>
-
-  <!-- Email modal -->
-  <div class="email-form" id="emailForm" role="dialog" aria-modal="true" aria-label="Contact form">
-    <button class="close-btn" type="button" id="closeFormBtn">×</button>
-    <form id="contactForm">
-      <h3 class="form-title" id="formTitle"></h3>
-      <p class="form-sub">info@dasecoffee.co</p>
-      <input type="email" id="fromInput" required />
-      <input type="text" id="subjectInput" required />
-      <textarea id="bodyInput" required></textarea>
-      <button class="send-btn" type="submit" id="sendBtn"></button>
-    </form>
+  <div class="modal-backdrop" id="emailForm">
+    <div class="modal-window">
+      <div class="modal-header mono">
+        <span id="formTitle"></span>
+        <button type="button" id="closeFormBtn" class="modal-close">✕</button>
+      </div>
+      <form id="contactForm" class="tech-form">
+        <div class="input-group">
+          <label class="mono">From:</label>
+          <input type="email" id="fromInput" required />
+        </div>
+        <div class="input-group">
+          <label class="mono">Subject:</label>
+          <input type="text" id="subjectInput" required />
+        </div>
+        <div class="input-group">
+          <label class="mono">Message:</label>
+          <textarea id="bodyInput" rows="5" required></textarea>
+        </div>
+        <button class="btn-submit mono" type="submit" id="sendBtn"></button>
+      </form>
+    </div>
   </div>
 
   <script src="./app.js"></script>
