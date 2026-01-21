@@ -1,0 +1,210 @@
+body {
+    margin: 0;
+    font-family: "Parkinsans", sans-serif;
+    background-color: #0038c7;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    position: relative;
+}
+
+.container {
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.language-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.language-switcher button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.language-switcher button:hover {
+    background: white;
+    color: #0038c7;
+}
+
+.language-switcher button.active {
+    background: #ffffff;
+    color: #0038c7;
+}
+
+img.logo {
+    width: 220px;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    min-height: 2.5rem;
+}
+
+.subtext {
+    font-size: 1rem;
+    margin-top: 10px;
+    opacity: 0.85;
+}
+
+.fixed-opening {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    opacity: 0.75;
+}
+
+.socials {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.socials a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.3rem;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.socials a:hover {
+    opacity: 1;
+}
+
+.contact-button {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    border-radius: 8px;
+}
+
+.contact-button:hover {
+    background-color: #ffffff;
+    color: #0038c7;
+}
+
+.contact-button::after {
+    content: "→";
+    margin-left: 10px;
+}
+
+.email-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 12px;
+    color: #000000;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #000000;
+}
+
+.email-form input,
+.email-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+.send-btn {
+    background-color: #0038c7;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+footer {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    width: 100%;
+    text-align: center;
+}
+
+/* Mobil uyum */
+@media (max-width: 500px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    .subtext,
+    .socials a,
+    .fixed-opening {
+        font-size: 14px;
+    }
+
+    img.logo {
+        width: 160px;
+    }
+
+    .contact-button {
+        bottom: 6%;
+        right: 6%;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+    }
+}

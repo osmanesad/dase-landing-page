@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- design by Osman Esad & AI / Pixel Digital Art / osmanesad.com -->
+    <!-- coffeeandbook.co / dasecoffee.co / dasecoffee.com -->
+    <!-- coming soon -->
+    <title>dase coffee | coming soon</title>
+
+    <link rel="icon" href="./dase_logo.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Ana stil dosyası -->
+    <link rel="stylesheet" href="/backup-page/styles.css" />
+</head>
+
+<body>
+    <div class="language-switcher" role="group" aria-label="Language switcher">
+        <button type="button" onclick="setLanguage('en')">EN</button>
+        <button type="button" onclick="setLanguage('tr')">TR</button>
+    </div>
+
+    <div class="container">
+        <img src="dase_white_logo.png" alt="dase logo" class="logo" />
+        <h1></h1>
+        <p class="subtext"></p>
+        <p class="fixed-opening"></p>
+        <div class="socials">
+            <a href="https://instagram.com/dasecoffee.co" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/dasecoffee" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+
+    <button class="contact-button" onclick="showForm()"></button>
+
+    <div class="email-form" aria-modal="true" role="dialog">
+        <button class="close-btn" onclick="closeForm()">×</button>
+        <form onsubmit="formatMailto(event)">
+            <h3></h3>
+            <p style="font-size: 0.9rem; opacity: 0.7;">
+                <a href="mailto:info@dasecoffee.co">info@dasecoffee.co</a>
+            </p>
+            <input type="email" name="from" placeholder="Your email address" required />
+            <input type="text" name="subject" placeholder="Subject" required />
+            <textarea name="body" placeholder="Your message" required></textarea>
+            <button class="send-btn" type="submit"></button>
+        </form>
+    </div>
+
+    <footer>© 2025 dase coffee — beyoğlu, istanbul</footer>
+
+    <!-- Analitik / harici scriptler (isteğe bağlı) -->
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"f328067e768743d7a39b1bdb87f272cc","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+    <script>
+        "undefined" === typeof _trfq || (window._trfq = []);
+        "undefined" === typeof _trfd && (window._trfd = []),
+            _trfd.push(
+                { "tccl.baseHost": "secureserver.net" },
+                { ap: "cpsh-oh" },
+                { server: "p3plzcpnl508589" },
+                { dcenter: "p3" },
+                { cp_id: "10266676" },
+                { cp_cl: "8" }
+            );
+    </script>
+    <script src="https://img1.wsimg.com/traffic-assets/js/tccl.min.js"></script>
+
+    <!-- Ana JS dosyası -->
+    <script src="/backup-page/script.js"></script>
+</body>
+
+</html>
