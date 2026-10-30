@@ -1,124 +1,298 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dase coffee — archive</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DASE Coffee — coffee, books & art in Beyoğlu, Istanbul." />
+  <title>DASE Coffee — Beyoğlu, Istanbul</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=1" />
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=1" />
+  <style>
+    @font-face{
+      font-family:"Manrope";
+      src:url("assets/fonts/manrope/Manrope-VariableFont_wght.ttf") format("truetype");
+      font-style:normal;
+      font-weight:200 800;
+      font-display:swap;
+    }
+    :root{
+      --ink:#11110f;
+      --paper:#f2efe7;
+      --paper-2:#e9e4da;
+      --orange:#e9834d;
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="./styles.css" />
+
+      --green:#344c40;
+      --line:rgba(17,17,15,.18);
+      --pad:clamp(20px,3vw,48px);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"Manrope",Arial,sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .mono{font-family:"Manrope",Arial,sans-serif;letter-spacing:.08em}
+
+    header{position:fixed;z-index:20;top:0;left:0;right:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--pad);border-bottom:1px solid var(--line);background:rgba(242,239,231,.88);backdrop-filter:blur(12px)}
+    .brand{font-weight:600;letter-spacing:-.05em;font-size:24px}
+    .brand small{font-family:"Manrope",Arial,sans-serif;font-weight:600;letter-spacing:.06em;font-size:10px;margin-left:8px;vertical-align:middle}
+    nav{display:flex;gap:24px;font-size:12px}
+    .lang{display:flex;justify-content:flex-end;align-items:center;gap:7px;text-align:right;font-size:11px}
+    .lang button{appearance:none;border:0;background:none;color:inherit;padding:3px 0;font:inherit;letter-spacing:inherit;cursor:pointer;opacity:.42}
+    .lang button:hover,.lang button[aria-pressed="true"]{opacity:1}
+    .lang button[aria-pressed="true"]{text-decoration:underline;text-underline-offset:4px}
+    .lang-separator{opacity:.35}
+
+    main{padding-top:68px}
+    .hero{min-height:94vh;display:grid;grid-template-columns:1.55fr .75fr;border-bottom:1px solid var(--line)}
+    .hero-main{padding:clamp(44px,6vw,86px) var(--pad) 34px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+    .eyebrow{font:400 11px/1.4 "Manrope",Arial,sans-serif;letter-spacing:.12em}
+    h1{margin:26px 0 0;font-size:clamp(84px,15vw,240px);line-height:.76;letter-spacing:-.085em;font-weight:600;max-width:1100px}
+    h1 span{display:block}
+    .hero-bottom{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:end}
+    .hero-copy{font-size:clamp(18px,2.1vw,34px);line-height:1.08;letter-spacing:-.035em;max-width:680px}
+    .hero-meta{font:400 11px/1.7 "Manrope",Arial,sans-serif;letter-spacing:.08em}
+    .orb{position:absolute;width:34vw;height:34vw;border-radius:50%;background:var(--orange);right:-11vw;top:15vh;mix-blend-mode:multiply;opacity:.92;pointer-events:none}
+
+    .hero-side{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:var(--pad);min-height:94vh}
+    .side-note{font-size:clamp(28px,3.8vw,58px);line-height:.95;letter-spacing:-.055em}
+    .side-footer{display:flex;justify-content:space-between;gap:20px;align-items:end;font-size:11px}
+    .map-link{border-bottom:1px solid rgba(242,239,231,.45);padding-bottom:2px;transition:border-color .2s ease}
+    .map-link:hover{border-color:var(--orange)}
+    .dot{width:9px;height:9px;background:var(--orange);border-radius:50%;display:inline-block;margin-right:8px}
+
+    .ticker{overflow:hidden;border-bottom:1px solid var(--line);padding:14px 0;white-space:nowrap;background:var(--orange);color:#15110e}
+    .ticker-track{display:flex;width:max-content;animation:ticker-scroll 22s linear infinite;font:500 13px/1 "Manrope",Arial,sans-serif;letter-spacing:.08em;will-change:transform}
+    .ticker-group{flex:none;min-width:100vw;padding-right:1em}
+    @keyframes ticker-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+    .section{padding:clamp(72px,9vw,140px) var(--pad);border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:.45fr 1.55fr;gap:30px;margin-bottom:72px}
+    .section-title{font-size:clamp(46px,7vw,104px);line-height:.9;letter-spacing:-.065em;margin:0;max-width:900px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+    .card{min-height:420px;padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;transition:.25s ease}
+    .card:hover{background:var(--paper-2);transform:translateY(-4px)}
+    .card-no{font:400 11px "Manrope",Arial,sans-serif}
+    .card h3{font-size:clamp(34px,4vw,62px);letter-spacing:-.055em;margin:0 0 18px}
+    .card p{font-size:16px;line-height:1.5;max-width:340px;margin:0}
+    .arrow-icon{display:inline-block;position:relative;width:1em;height:1em;flex-shrink:0;vertical-align:-.1em;color:inherit}
+    .arrow-icon::before{content:"";position:absolute;left:14%;top:47%;width:78%;height:1.5px;background:currentColor;transform:rotate(-45deg)}
+    .arrow-icon::after{content:"";position:absolute;right:10%;top:10%;width:48%;height:48%;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor}
+    .arrow-down{transform:rotate(90deg)}
+    .arrow-up{transform:rotate(-45deg)}
+    .card>.arrow-icon{font-size:28px}
+
+    .manifesto{display:grid;grid-template-columns:1fr 1fr;min-height:78vh;border-bottom:1px solid var(--line)}
+    .manifesto-left{background:var(--green);color:white;padding:var(--pad);display:flex;flex-direction:column;justify-content:space-between}
+    .manifesto-left p{font-size:clamp(34px,5vw,76px);line-height:.96;letter-spacing:-.055em;margin:0}
+    .manifesto-right{padding:var(--pad);display:flex;flex-direction:column;justify-content:space-between}
+    .manifesto-right .big{font-size:clamp(54px,8vw,130px);line-height:.85;letter-spacing:-.07em}
+    .manifesto-right .small{max-width:520px;font-size:17px;line-height:1.55}
+
+    .visit{display:grid;grid-template-columns:1.2fr .8fr;gap:30px}
+    .visit h2{font-size:clamp(58px,10vw,150px);line-height:.8;letter-spacing:-.07em;margin:0 0 48px}
+    .visit-panel{border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:320px}
+    .visit-panel strong{font-size:28px;letter-spacing:-.04em}
+    .button{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;border:1px solid var(--ink);padding:15px 18px;font:500 11px "Manrope",Arial,sans-serif;letter-spacing:.08em;max-width:280px;transition:.2s}
+    .button:hover{background:var(--ink);color:var(--paper)}
+
+    footer{background:var(--ink);color:var(--paper);padding:42px var(--pad) 28px}
+    .footer-top{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:end;padding-bottom:70px}
+    .footer-word{font-size:clamp(68px,13vw,200px);line-height:.78;letter-spacing:-.08em;font-weight:600}
+    .footer-links{display:grid;gap:12px;font:400 12px "Manrope",Arial,sans-serif;letter-spacing:.08em}
+    .footer-bottom{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.16);padding-top:18px;font-size:10px;opacity:.72}
+
+    :focus-visible{outline:2px solid var(--orange);outline-offset:5px}
+    .hero-main>div:first-child,.hero-bottom{position:relative;z-index:1}
+    .orb{z-index:0}
+    .card:hover{transform:none;background:rgba(52,76,64,.055)}
+    .footer-links a:hover,nav a:hover{color:var(--orange)}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation-duration:66s}*{transition:none!important}}
+    @media(max-width:600px){
+      header{padding:14px 20px}.brand{font-size:22px}main{padding-top:58px}
+      .hero-main{min-height:68vh;padding-top:55px;padding-bottom:28px}
+      h1{font-size:clamp(78px,24vw,140px);letter-spacing:-.09em}
+      .hero-bottom{grid-template-columns:1fr;gap:16px}
+      .hero-copy{font-size:21px;max-width:340px}
+      .hero-side{min-height:38vh;padding:28px 20px}
+      .side-note{font-size:clamp(30px,8vw,45px)}
+      .orb{top:19vh;width:75vw;height:75vw;right:-31vw}
+      .section{padding:76px 20px}.section-title{font-size:clamp(44px,12vw,68px)}
+      .manifesto-left,.manifesto-right{min-height:46vh;padding:28px 20px}
+      .visit h2{font-size:clamp(65px,17vw,110px)}
+      .footer-word{font-size:clamp(75px,20vw,130px)}
+      .footer-bottom{gap:14px;flex-wrap:wrap}
+    }
+    @media(max-width:900px){
+      header{grid-template-columns:1fr auto} nav{display:none}.lang{display:block}
+      .hero{grid-template-columns:1fr}.hero-side{min-height:52vh}.hero-main{min-height:78vh}
+      .hero-bottom,.section-head,.manifesto,.visit,.footer-top{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}.card{min-height:290px}
+      .orb{width:62vw;height:62vw;right:-20vw;top:24vh}
+      h1{font-size:clamp(82px,25vw,170px)}
+      .section-head{margin-bottom:46px}
+    }
+  </style>
 </head>
-
 <body>
-  <div class="lang-switch mono">
-    <button type="button" id="btnEN" class="lang-btn">EN</button>
-    <span class="sep">/</span>
-    <button type="button" id="btnTR" class="lang-btn">TR</button>
-  </div>
+  <header>
+    <a class="brand" href="#top">dase <small>coffee</small></a>
+    <nav class="mono">
+      <a href="#about" data-i18n="navAbout">HAKKIMIZDA</a>
+      <a href="#coffee" data-i18n="navCoffee">KAHVE</a>
+      <a href="#books" data-i18n="navBooks">KİTAPLAR</a>
+      <a href="#art" data-i18n="navArt">SANAT</a>
+      <a href="#visit" data-i18n="navVisit">ZİYARET</a>
+    </nav>
+    <div class="lang mono" aria-label="Dil seçimi">
+      <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+      <span class="lang-separator" aria-hidden="true">/</span>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
 
-  <main class="container">
-    
-    <header class="site-header">
-      <div class="brand">
-        <h1 class="brand-name">dase coffee.</h1>
-        <div class="brand-meta mono" id="brandSub"></div>
-      </div>
-      <div class="status-badge mono">
-        <span class="status-dot"></span>
-        <span>Drop 001 Active</span>
-      </div>
-    </header>
-
+  <main id="top">
     <section class="hero">
-      <p class="hero-statement" id="heroLead"></p>
-      <div class="hero-footer mono">
-        <span id="heroAccent"></span>
-        <a href="#shop" class="scroll-down">↓ <span id="scrollHint"></span></a>
+      <div class="hero-main">
+        <div>
+          <div class="eyebrow" data-i18n="heroEyebrow">BEYOĞLU, İSTANBUL · 2026'DA AÇILIYOR</div>
+          <h1><span>dase</span><span>coffee</span></h1>
+        </div>
+        <div class="orb"></div>
+        <div class="hero-bottom">
+          <div class="hero-copy" data-i18n="heroCopy">Kahve içmek, kitaplara bakmak, yeni şeyler keşfetmek ve biraz daha kalmak için bir yer.</div>
+          <div class="hero-meta" data-i18n="heroMeta">KAHVE / KİTAP / SANAT<br>ATÖLYELER / OBJELER / İNSANLAR</div>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <div class="side-note" data-i18n="sideNote">iyi kahve.<br>iyi kitaplar.<br>biraz sanat.<br>ve daha fazlası.</div>
+        <div class="side-footer mono"><span><i class="dot"></i><span data-i18n="openingSoon">YAKINDA AÇILIYOR</span></span><a class="map-link" href="https://maps.app.goo.gl/FEnyfhcmao8dagh98" target="_blank" rel="noopener noreferrer" aria-label="DASE Coffee konumunu Google Maps'te aç">41°01′56″N · 28°58′51″E <span class='arrow-icon' aria-hidden='true'></span></a></div>
+      </aside>
+    </section>
+
+    <div class="ticker" aria-label="Kahve, kitaplar, sanat, Beyoğlu"><div class="ticker-track" data-i18n="ticker"><span class='ticker-group'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span><span class='ticker-group' aria-hidden='true'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span></div></div>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <div class="eyebrow" data-i18n="aboutLabel">01 / DASE COFFEE</div>
+        <h2 class="section-title" data-i18n="aboutTitle">Tek bir şey olmaya çalışmıyoruz.</h2>
+      </div>
+      <div class="cards">
+        <article class="card" id="coffee"><span class="card-no">01.1</span><div><h3 data-i18n="coffeeTitle">kahve</h3><p data-i18n="coffeeCopy">Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
+        <article class="card" id="books"><span class="card-no">01.2</span><div><h3 data-i18n="booksTitle">kitaplar</h3><p data-i18n="booksCopy">Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
+        <article class="card" id="art"><span class="card-no">01.3</span><div><h3 data-i18n="artTitle">sanat</h3><p data-i18n="artCopy">Baskılar, objeler, küçük sergiler ve birlikte üretmeye açık atölyeler.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
       </div>
     </section>
 
-    <section id="shop" class="catalog">
-      <div class="catalog-header mono">
-        <span id="shopTitle"></span>
-        <span>(Index 001)</span>
+    <section class="manifesto">
+      <div class="manifesto-left">
+        <div class="eyebrow" data-i18n="noteLabel">02 / BİR NOT</div>
+        <p data-i18n="noteTitle">Bir yere sadece kahve içmek için gitmeyiz.</p>
+        <div class="mono" style="font-size:11px">DASE COFFEE / BEYOĞLU</div>
       </div>
-      
-      <div id="productGrid" class="catalog-grid"></div>
-    </section>
-
-    <section id="about" class="manifesto">
-      <div class="manifesto-head">
-        <h2 class="serif-title" id="aboutTitle"></h2>
-        <p class="body-text" id="aboutLead"></p>
-      </div>
-
-      <div class="manifesto-grid">
-        <div class="m-col">
-          <h3 class="mono-title" id="aboutPanelLeftTitle"></h3>
-          <p class="body-text" id="aboutPanelLeftBody"></p>
-        </div>
-        <div class="m-col">
-          <h3 class="mono-title" id="aboutPanelRightTitle"></h3>
-          <ul class="clean-list mono" id="aboutList"></ul>
-        </div>
+      <div class="manifesto-right">
+        <div class="big" data-i18n="stayLonger">biraz<br>daha<br>kal.</div>
+        <div class="small" data-i18n="manifestoCopy">DASE Coffee'nin acele ettirmeyen bir yer olmasını istiyoruz. Bir kahve al, bir kitaba bak, bir şeyi merak et, biriyle konuş ya da hiçbir şey yapma.</div>
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-top">
-        <div class="f-col">
-          <h3 class="mono-title" id="orderTitle"></h3>
-          <p class="body-text" id="orderLead"></p>
-          <ul class="clean-list mono" id="orderList"></ul>
+    <section class="section" id="visit">
+      <div class="visit">
+        <div>
+          <div class="eyebrow" data-i18n="visitLabel">03 / ZİYARET</div>
+          <h2>Beyoğlu.</h2>
+          <a class="button" href="mailto:info@dasecoffee.co">INFO@DASECOFFEE.CO <span class='arrow-icon' aria-hidden='true'></span></a>
         </div>
-        <div class="f-col align-right">
-          <button type="button" class="btn-contact-large" id="footerContact">
-            <span id="contactBtn"></span> →
-          </button>
-        </div>
-      </div>
-
-      <div class="footer-bottom mono">
-        <div class="f-meta">
-          <span id="footerBrand"></span>
-          <span class="divider">—</span>
-          <span id="footerNote"></span>
-        </div>
-        <div class="socials">
-          <a href="https://instagram.com/dasecoffee.co" target="_blank" id="footerIG"></a>
+        <div class="visit-panel">
+          <div class="mono" style="font-size:11px" data-i18n="openingLabel">AÇILIŞ</div>
+          <strong data-i18n="openingPlace">2026<br>İstanbul</strong>
+          <div class="mono" style="font-size:11px;line-height:1.7" data-i18n="visitCopy">AÇILIŞ TARİHİ YAKINDA DUYURULACAK.</div>
+          <a class="button" href="https://maps.app.goo.gl/FEnyfhcmao8dagh98" target="_blank" rel="noopener noreferrer"><span data-i18n="directionsLink">HARİTADA GÖR</span><span class='arrow-icon' aria-hidden='true'></span></a>
         </div>
       </div>
-    </footer>
-
+    </section>
   </main>
 
-  <div class="modal-backdrop" id="emailForm">
-    <div class="modal-window">
-      <div class="modal-header mono">
-        <span id="formTitle"></span>
-        <button type="button" id="closeFormBtn" class="modal-close">✕</button>
-      </div>
-      <form id="contactForm" class="tech-form">
-        <div class="input-group">
-          <label class="mono">From:</label>
-          <input type="email" id="fromInput" required />
-        </div>
-        <div class="input-group">
-          <label class="mono">Subject:</label>
-          <input type="text" id="subjectInput" required />
-        </div>
-        <div class="input-group">
-          <label class="mono">Message:</label>
-          <textarea id="bodyInput" rows="5" required></textarea>
-        </div>
-        <button class="btn-submit mono" type="submit" id="sendBtn"></button>
-      </form>
+  <footer>
+    <div class="footer-top">
+      <div class="footer-word">dase<br>coffee</div>
+      <div class="footer-links"><a href="https://www.instagram.com/dasecoffee.co/" target="_blank" rel="noopener noreferrer">INSTAGRAM <span class='arrow-icon' aria-hidden='true'></span></a><a href="mailto:info@dasecoffee.co" data-i18n="mailLink">E-POSTA <span class='arrow-icon' aria-hidden='true'></span></a><a href="#top" data-i18n="backTop">BAŞA DÖN <span class='arrow-icon arrow-up' aria-hidden='true'></span></a></div>
     </div>
-  </div>
+    <div class="footer-bottom mono"><span>© 2026 DASE COFFEE</span><span data-i18n="footerTags">KAHVE · KİTAPLAR · SANAT</span><span data-i18n="footerLocation">BEYOĞLU, İSTANBUL</span></div>
+  </footer>
+  <script>
+    const translations = {
+      tr: {
+        title: "DASE Coffee — Beyoğlu, İstanbul",
+        description: "DASE Coffee — Beyoğlu, İstanbul'da kahve, kitap ve sanat.",
+        navAbout: "HAKKIMIZDA", navCoffee: "KAHVE", navBooks: "KİTAPLAR", navArt: "SANAT", navVisit: "ZİYARET",
+        heroEyebrow: "BEYOĞLU, İSTANBUL · 2026'DA AÇILIYOR",
+        heroCopy: "Kahve içmek, kitaplara bakmak, yeni şeyler keşfetmek ve biraz daha kalmak için bir yer.",
+        heroMeta: "KAHVE / KİTAP / SANAT<br>ATÖLYELER / OBJELER / İNSANLAR",
+        sideNote: "iyi kahve.<br>iyi kitaplar.<br>biraz sanat.<br>ve daha fazlası.",
+        openingSoon: "YAKINDA AÇILIYOR",
+        ticker: "<span class='ticker-group'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span><span class='ticker-group' aria-hidden='true'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span>",
+        aboutLabel: "01 / DASE COFFEE", aboutTitle: "Tek bir şey olmaya çalışmıyoruz.",
+        coffeeTitle: "kahve", coffeeCopy: "Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.",
+        booksTitle: "kitaplar", booksCopy: "Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.",
+        artTitle: "sanat", artCopy: "Baskılar, objeler, küçük sergiler ve birlikte üretmeye açık atölyeler.",
+        noteLabel: "02 / BİR NOT", noteTitle: "Bir yere sadece kahve içmek için gitmeyiz.",
+        stayLonger: "biraz<br>daha<br>kal.", manifestoCopy: "DASE Coffee'nin acele ettirmeyen bir yer olmasını istiyoruz. Bir kahve al, bir kitaba bak, bir şeyi merak et, biriyle konuş ya da hiçbir şey yapma.",
+        visitLabel: "03 / ZİYARET", openingLabel: "AÇILIŞ", openingPlace: "2026<br>İstanbul", visitCopy: "AÇILIŞ TARİHİ YAKINDA DUYURULACAK.", directionsLink: "HARİTADA GÖR",
+        mailLink: "E-POSTA <span class='arrow-icon' aria-hidden='true'></span>", backTop: "BAŞA DÖN <span class='arrow-icon arrow-up' aria-hidden='true'></span>", footerTags: "KAHVE · KİTAPLAR · SANAT", footerLocation: "BEYOĞLU, İSTANBUL"
+      },
+      en: {
+        title: "DASE Coffee — Beyoğlu, Istanbul",
+        description: "DASE Coffee — coffee, books and art in Beyoğlu, Istanbul.",
+        navAbout: "ABOUT", navCoffee: "COFFEE", navBooks: "BOOKS", navArt: "ART", navVisit: "VISIT",
+        heroEyebrow: "BEYOĞLU, ISTANBUL · OPENING IN 2026",
+        heroCopy: "A place for coffee, browsing books, discovering new things and staying a little longer.",
+        heroMeta: "COFFEE / BOOKS / ART<br>WORKSHOPS / OBJECTS / PEOPLE",
+        sideNote: "good coffee.<br>good books.<br>a little art.<br>and more.",
+        openingSoon: "OPENING SOON",
+        ticker: "<span class='ticker-group'>COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · </span><span class='ticker-group' aria-hidden='true'>COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · COFFEE · BOOKS · ART · BEYOĞLU · </span>",
+        aboutLabel: "01 / DASE COFFEE", aboutTitle: "We are not trying to be just one thing.",
+        coffeeTitle: "coffee", coffeeCopy: "Espresso, V60 and carefully selected beans. A little more time in every cup.",
+        booksTitle: "books", booksCopy: "Literature, art and design. Books waiting to be discovered on our shelves.",
+        artTitle: "art", artCopy: "Prints, objects, small exhibitions and workshops for making things together.",
+        noteLabel: "02 / A NOTE", noteTitle: "We do not go somewhere just to drink coffee.",
+        stayLonger: "stay<br>a little<br>longer.", manifestoCopy: "We want DASE Coffee to be a place that never rushes you. Have a coffee, look through a book, get curious, talk to someone or do nothing at all.",
+        visitLabel: "03 / VISIT", openingLabel: "OPENING", openingPlace: "2026<br>Istanbul", visitCopy: "THE OPENING DATE WILL BE ANNOUNCED SOON.", directionsLink: "VIEW ON MAPS",
+        mailLink: "EMAIL <span class='arrow-icon' aria-hidden='true'></span>", backTop: "BACK TO TOP <span class='arrow-icon arrow-up' aria-hidden='true'></span>", footerTags: "COFFEE · BOOKS · ART", footerLocation: "BEYOĞLU, ISTANBUL"
+      }
+    };
 
-  <script src="./app.js"></script>
+    function setLanguage(language) {
+      const lang = translations[language] ? language : "tr";
+      const copy = translations[lang];
+      document.documentElement.lang = lang;
+      document.title = copy.title;
+      document.querySelector('meta[name="description"]').content = copy.description;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = copy[element.dataset.i18n];
+        if (value !== undefined) element.innerHTML = value;
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
+      });
+      document.querySelector(".lang").setAttribute("aria-label", lang === "tr" ? "Dil seçimi" : "Language selection");
+      try {
+        localStorage.setItem("dase-language", lang);
+      } catch (error) {
+        // Dil seçimi depolanamasa da mevcut oturumda çalışmaya devam eder.
+      }
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    });
+
+    let savedLanguage = "tr";
+    try {
+      savedLanguage = localStorage.getItem("dase-language") || "tr";
+    } catch (error) {
+      savedLanguage = "tr";
+    }
+    setLanguage(savedLanguage);
+  </script>
 </body>
 </html>
