@@ -1,5 +1,10 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Yayına hazırlık açıklaması
+
+- Sanat sayfasının açılışına Türkçe/İngilizce “hazırlanıyor / yakında” açıklaması eklendi. Eserlerin taslak ve temsili olduğu, satışın henüz açılmadığı açıklandı. Açıklama JavaScript kapalıyken de görünür.
+- Ana sayfa kayan yazısının 22 saniyelik sonsuz animasyon ayarı, iki eş içerik grubu ve azaltılmış hareket tercihinde durması test edildi. Bu kontrol CSS/DOM düzeyindedir; bağlı tarayıcı olmadığından animasyonun görsel çalışması doğrulanamadı.
+
 ## 23 Kasım 2026 — Instagram profilleri
 
 - Beyza (`@beyzaornekl`), İrem (`@atelier.tue`) ve Ayşegül (`@asheluldag`) için sanatçı kartlarına Instagram bağlantıları eklendi.

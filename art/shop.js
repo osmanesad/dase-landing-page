@@ -34,6 +34,8 @@ const copy = {
 
 const byId = (id) => document.getElementById(id);
 Object.assign(copy.tr, {
+  preparationLabel: "YAKINDA", preparationTitle: "Sanat alanımız hazırlanıyor.",
+  preparationCopy: "Sanatçılarımızı şimdiden tanıyabilirsin. Eser fotoğrafları ve satış bilgileri yakında eklenecek; şu an gördüğün ürünler temsili görseller içeren taslaklardır ve henüz satışa açık değildir.",
   artistLabel: "ÜÇ SANATÇI, FARKLI DÜNYALAR",
   pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al", photoUnavailable: "Görsel yüklenemedi. Fotoğraf için bize yazabilirsin.",
   related: "Diğer eserlere göz at", allProducts: "Tüm eserleri gör", preview: "Temsili çizim · Eser fotoğrafları yakında.",
@@ -51,6 +53,8 @@ Object.assign(copy.tr, {
   mosaic: "Mozaik", watercolor: "Suluboya kartpostal", canvas: "Tuval resmi"
 });
 Object.assign(copy.en, {
+  preparationLabel: "COMING SOON", preparationTitle: "Our art space is taking shape.",
+  preparationCopy: "Meet our artists while we prepare the collection. Artwork photographs and sales details will be added soon. The products currently shown are drafts with illustrative visuals and are not yet available to buy.",
   artistLabel: "THREE ARTISTS, DIFFERENT WORLDS",
   pay: "Buy with payment link", askProduct: "Ask on WhatsApp", photoUnavailable: "The image could not be loaded. Contact us for a photograph.",
   related: "Explore other works", allProducts: "View all works", preview: "Illustrative drawing · Artwork photographs coming soon.",

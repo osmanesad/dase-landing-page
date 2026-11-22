@@ -77,6 +77,15 @@ test('home: all three Art entry points, translations and malformed saved languag
     const { dom, d, errors } = page('index.html', { saved });
     assert.equal(d.documentElement.lang, saved === 'en' ? 'en' : 'tr');
     assert.equal(d.querySelectorAll('a[href="art/index.html"]').length, 3);
+    const track = d.querySelector('.ticker-track');
+    const animation = d.defaultView.getComputedStyle(track).animation.split(/\s+/).sort();
+    assert.deepEqual(animation, ['ticker-scroll', '22s', 'linear', 'infinite'].sort());
+    const groups = track.querySelectorAll('.ticker-group');
+    assert.equal(groups.length, 2);
+    assert.equal(groups[0].textContent, groups[1].textContent);
+    assert.equal(groups[1].getAttribute('aria-hidden'), 'true');
+    const reducedMotion = [...d.styleSheets[0].cssRules].find(rule => rule.conditionText?.replace(/\s/g, '') === '(prefers-reduced-motion:reduce)');
+    assert(reducedMotion && [...reducedMotion.cssRules].some(rule => rule.selectorText === '.ticker-track' && rule.style.animation === 'none'));
     for (const lang of ['en', 'tr']) {
       click(d, `[data-lang="${lang}"]`);
       assert.equal(d.documentElement.lang, lang);
@@ -90,6 +99,9 @@ test('home: all three Art entry points, translations and malformed saved languag
 test('art: profiles, 30 products, filtering, all dialogs, recommendations and profile return', () => {
   const { dom, w, d, errors } = page('art/index.html');
   assert.equal(d.querySelectorAll('.artist-profile').length, 3);
+  assert(d.querySelector('.preparation-notice').textContent.includes('henüz satışa açık değildir'));
+  const initial = new JSDOM(read('art/index.html')).window.document;
+  assert(initial.querySelector('.preparation-notice').textContent.includes('hazırlanıyor'));
   const instagramProfiles = { beyza: 'beyzaornekl', irem: 'atelier.tue', aysegul: 'asheluldag' };
   for (const [id, handle] of Object.entries(instagramProfiles)) {
     const link = d.querySelector(`#sanatci-${id} .artist-instagram`);
@@ -138,6 +150,7 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
   }
   for (const lang of ['en', 'tr']) {
     click(d, `[data-lang="${lang}"]`);
+    assert(d.querySelector('#preparation-title').textContent.includes(lang === 'en' ? 'taking shape' : 'hazırlanıyor'));
     for (const node of d.querySelectorAll('[data-copy]')) assert(node.textContent.trim(), node.dataset.copy);
     assert.equal(d.documentElement.lang, lang);
   }
