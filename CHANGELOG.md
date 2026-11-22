@@ -1,5 +1,11 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Altı çalışmalık seçkiler
+
+- Her sanatçının seçkisi 6 taslak çalışmaya indirildi: Beyza B01–B06, İrem M01–M06, Ayşegül A01–A06. Katalogda toplam 18 çalışma bulunur.
+- Genel görünüm her sanatçıdan 2’şer çalışma, toplam 6 çalışma gösterir. Sanatçı profili ve filtreleri sanatçının 6 çalışmasını açar.
+- Genel seçkinin açıklaması ve ürün detayından dönüş düğmesi bu akışa göre güncellendi; sayılar ve dengeli dağılım test edildi.
+
 ## 23 Kasım 2026 — Kahve ve Kitaplar hazırlanıyor
 
 - Ana sayfadaki Kahve ve Kitaplar kartlarına Türkçe/İngilizce “Hazırlanıyor” etiketi, yanıp sönen sinyal ve bölüme özel yakında açıklaması eklendi.

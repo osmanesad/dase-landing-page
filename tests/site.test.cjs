@@ -112,7 +112,7 @@ test('home: all three Art entry points, translations and malformed saved languag
   }
 });
 
-test('art: profiles, 30 products, filtering, all dialogs, recommendations and profile return', () => {
+test('art: profiles, 18 products, filtering, all dialogs, recommendations and profile return', () => {
   const { dom, w, d, errors } = page('art/index.html');
   assert.equal(d.querySelectorAll('.artist-profile').length, 3);
   assert(d.querySelector('.preparation-notice').textContent.includes('henüz satışa açık değildir'));
@@ -130,18 +130,22 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
     photo.dispatchEvent(new w.Event('error'));
     assert(!d.querySelector(`#sanatci-${id} .artist-avatar`));
   }
-  assert.equal(d.querySelectorAll('.product-card').length, 30);
+  assert.equal(d.querySelectorAll('.product-card').length, 6);
   const mixedOrder = [...d.querySelectorAll('.product-card')].map(card => card.dataset.productId);
-  assert.equal(new Set(mixedOrder).size, 30);
+  assert.equal(new Set(mixedOrder).size, 6);
+  for (const artist of w.DASE_ART.artists) {
+    assert.equal(mixedOrder.filter(id => w.DASE_ART.products.find(p => p.id === id).artistId === artist.id).length, 2);
+    assert.equal(w.DASE_ART.products.filter(product => product.artistId === artist.id).length, 6);
+  }
   for (let index = 0; index < mixedOrder.length; index += 3) {
     const artistIds = mixedOrder.slice(index, index + 3).map(id => w.DASE_ART.products.find(p => p.id === id).artistId);
     assert.equal(new Set(artistIds).size, 3, 'each group of three represents all artists');
   }
-  assert.equal(new Set(w.DASE_ART.products.map(p => p.id)).size, 30);
+  assert.equal(new Set(w.DASE_ART.products.map(p => p.id)).size, 18);
   for (const artist of w.DASE_ART.artists) {
     click(d, `#sanatci-${artist.id} button`);
     assert.equal(d.activeElement.id, 'collection-title');
-    assert.equal(d.querySelectorAll('.product-card').length, 10);
+    assert.equal(d.querySelectorAll('.product-card').length, 6);
     assert(d.querySelector('#collection-empty').hidden);
     for (const button of d.querySelectorAll('.product-card h3 button')) {
       button.click();
@@ -166,7 +170,7 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
   filter.focus(); filter.click();
   assert.equal(d.activeElement.dataset.artistFilter, 'beyza');
   click(d, '.product-card button'); click(d, '#browse-collection');
-  assert.equal(d.querySelectorAll('.product-card').length, 30);
+  assert.equal(d.querySelectorAll('.product-card').length, 6);
   assert.deepEqual([...d.querySelectorAll('.product-card')].map(card => card.dataset.productId), mixedOrder);
   for (const link of d.querySelectorAll('#commission-links a')) {
     assert(new URL(link.href).searchParams.get('text').includes(link.textContent));

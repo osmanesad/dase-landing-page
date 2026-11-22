@@ -38,7 +38,7 @@ Object.assign(copy.tr, {
   preparationCopy: "Sanatçılarımızı şimdiden tanıyabilirsin. Eser fotoğrafları ve satış bilgileri yakında eklenecek; şu an gördüğün ürünler temsili görseller içeren taslaklardır ve henüz satışa açık değildir.",
   artistLabel: "ÜÇ SANATÇI, FARKLI DÜNYALAR",
   pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al", photoUnavailable: "Görsel yüklenemedi. Fotoğraf için bize yazabilirsin.",
-  related: "Diğer eserlere göz at", allProducts: "Tüm eserleri gör", preview: "Temsili çizim · Eser fotoğrafları yakında.",
+  related: "Diğer eserlere göz at", allProducts: "Genel seçkiye dön", collectionOverview: "Her sanatçıdan iki çalışma. Daha fazlası için sanatçının profiline veya filtresine göz at.", preview: "Temsili çizim · Eser fotoğrafları yakında.",
   detailsSoon: "Bu eserin fotoğrafları, ölçüleri ve malzeme bilgileri hazırlanıyor. Ayrıntılar için bize yazabilirsin.",
   paymentSoon: "Online ödeme henüz açık değil. WhatsApp üzerinden ürün ve satışa çıkış bilgisi alabilirsin.",
   paymentReady: "Ödeme, bağlantıda açılan sağlayıcının sayfasında tamamlanır. Stok ve teslimat bilgilerini satın almadan önce teyit et.",
@@ -57,7 +57,7 @@ Object.assign(copy.en, {
   preparationCopy: "Meet our artists while we prepare the collection. Artwork photographs and sales details will be added soon. The products currently shown are drafts with illustrative visuals and are not yet available to buy.",
   artistLabel: "THREE ARTISTS, DIFFERENT WORLDS",
   pay: "Buy with payment link", askProduct: "Ask on WhatsApp", photoUnavailable: "The image could not be loaded. Contact us for a photograph.",
-  related: "Explore other works", allProducts: "View all works", preview: "Illustrative drawing · Artwork photographs coming soon.",
+  related: "Explore other works", allProducts: "Back to the selection", collectionOverview: "Two works from each artist. Explore an artist’s profile or filter to see more.", preview: "Illustrative drawing · Artwork photographs coming soon.",
   detailsSoon: "Photographs, dimensions and material details for this work are being prepared. Contact us for more information.",
   paymentSoon: "Online payment is not available yet. Ask us on WhatsApp about this piece and its release.",
   paymentReady: "Payment is completed on the provider’s linked page. Confirm availability and delivery before purchasing.",
@@ -267,9 +267,9 @@ function mixedCatalog() {
 function renderCatalog() {
   const grid = byId("products");
   const artist = artists.find(item => item.id === selectedArtist);
-  const visible = artist ? products.filter(product => product.artistId === artist.id) : mixedCatalog();
+  const visible = artist ? products.filter(product => product.artistId === artist.id) : mixedCatalog().slice(0, 6);
   byId("collection-title").textContent = artist ? artist.name + labels.worksSuffix : labels.collection;
-  byId("collection-context").textContent = artist ? localized(artist.medium) : "";
+  byId("collection-context").textContent = artist ? localized(artist.medium) : labels.collectionOverview;
   byId("collection-note").textContent = visible.length && !visible.some(purchasable) ? labels.coming : "";
   byId("collection-empty").hidden = visible.length > 0;
   grid.hidden = visible.length === 0;
