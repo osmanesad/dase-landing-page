@@ -191,6 +191,10 @@ body:has(dialog[open]) { overflow:hidden; }
 .artist-visual.watercolor::after { background:radial-gradient(ellipse at 40% 35%,#cf8a7299,transparent 45%),radial-gradient(ellipse at 65% 70%,#829c8caa,transparent 50%),#faf8f0; border:10px solid #faf8f0; }
 .artist-visual.canvas { background:#d9d2c6; }
 .artist-visual.canvas::after { transform:rotate(6deg); background:linear-gradient(50deg,transparent 35%,#dd885c 35% 60%,transparent 60%),linear-gradient(125deg,#344c40 40%,#92a293 40% 70%,#f0dfbc 70%); border:6px solid #9f886b; }
+.product-card .artist-visual::after { transition:transform .25s; }
+.product-card:hover .artist-visual::after { transform:rotate(0deg) scale(1.04); }
+.product-card:focus-within .artist-visual::after { transform:rotate(0deg) scale(1.04); }
+.product-card:focus-within .mini-mosaic { transform:rotate(0deg) scale(1.04); }
 .artist-visual.mosaic { background:#344c40; }
 .artist-visual.mosaic::after { display:none; }
 .artist-visual .mini-mosaic { width:125px; }

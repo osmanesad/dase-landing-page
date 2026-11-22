@@ -1,5 +1,10 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Tüm sanatçıların kartlarında hareket
+
+- Mozaik kartlarındaki üzerine gelince düzleşme ve hafif büyüme efekti, Beyza’nın suluboya ve Ayşegül’ün tuval temsillerine de uygulandı.
+- Aynı etki klavyeyle kart düğmesine odaklanınca da gösterilir. Azaltılmış hareket tercihinde geçiş animasyonu kapalıdır.
+
 ## 23 Kasım 2026 — Altı çalışmalık seçkiler
 
 - Her sanatçının seçkisi 6 taslak çalışmaya indirildi: Beyza B01–B06, İrem M01–M06, Ayşegül A01–A06. Katalogda toplam 18 çalışma bulunur.
