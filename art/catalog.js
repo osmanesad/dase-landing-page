@@ -14,16 +14,19 @@ window.DASE_ART = {
   artists: [
     {
       id: "beyza", name: "Beyza", visual: "watercolor",
+      instagram: "https://www.instagram.com/beyzaornekl/", profileImage: "photos/artists/beyza-profile.jpg",
       medium: { tr: "Suluboya · Kartpostal", en: "Watercolour · Postcards" },
       bio: { tr: "Beyza, suluboyayla kartpostallar yapıyor. Renkleri kâğıt üzerinde buluşturan çalışmalarını keşfet; sana özel bir resim için fikrini onunla paylaş.", en: "Beyza makes watercolour postcards. Explore her work on paper, or share your idea for a commissioned painting." }
     },
     {
       id: "irem", name: "İrem", visual: "mosaic",
+      instagram: "https://www.instagram.com/atelier.tue/", profileImage: "photos/artists/irem-profile.jpg",
       medium: { tr: "Mozaik · Tuval", en: "Mosaic · Canvas" },
       bio: { tr: "İrem’in üretimi mozaikten tuvale uzanıyor. Küçük parçalarla kurduğu dünyaların yanında tuval üzerine resimler de yapıyor. Sipariş üzerine resim taleplerini de iletebilirsin.", en: "İrem works in both mosaic and painting on canvas. Alongside the worlds she builds from small pieces, she also welcomes requests for commissioned paintings." }
     },
     {
       id: "aysegul", name: "Ayşegül", visual: "canvas",
+      instagram: "https://www.instagram.com/asheluldag/", profileImage: "photos/artists/aysegul-profile.jpg",
       medium: { tr: "Tuval · Farklı materyaller", en: "Canvas · Mixed materials" },
       bio: { tr: "Ayşegül, tuval üzerinde renkleri farklı materyallerle bir araya getiriyor. Bağımsız üretimlerini keşfet ya da sana özel bir resim için onunla bir fikir paylaş.", en: "Ayşegül brings colour and different materials together on canvas. Explore her independent practice, or share an idea for a painting made for you." }
     }

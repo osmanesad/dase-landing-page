@@ -169,12 +169,32 @@ function renderArtists() {
     const content = element("div", "artist-profile-copy");
     const name = element("h3", "", artist.name);
     name.id = "artist-name-" + artist.id;
+    const identity = element("div", "artist-identity");
+    if (artist.profileImage) {
+      const portrait = element("img", "artist-avatar");
+      portrait.src = artist.profileImage;
+      portrait.alt = "";
+      portrait.width = 72;
+      portrait.height = 72;
+      portrait.loading = "lazy";
+      portrait.addEventListener("error", () => portrait.remove(), { once: true });
+      identity.append(portrait);
+    }
+    identity.append(name);
     profile.setAttribute("aria-labelledby", name.id);
     const works = element("button", "action primary", labels.viewWorks);
     works.type = "button";
     works.setAttribute("aria-label", artist.name + " · " + labels.viewWorks);
     works.addEventListener("click", () => selectArtist(artist.id));
-    content.append(element("p", "eyebrow", localized(artist.medium)), name, element("p", "artist-bio", localized(artist.bio)), works);
+    content.append(element("p", "eyebrow", localized(artist.medium)), identity, element("p", "artist-bio", localized(artist.bio)), works);
+    if (artist.instagram) {
+      const instagram = element("a", "artist-instagram", "Instagram · @" + new URL(artist.instagram).pathname.split("/").filter(Boolean)[0]);
+      instagram.href = artist.instagram;
+      instagram.target = "_blank";
+      instagram.rel = "noopener noreferrer";
+      instagram.setAttribute("aria-label", artist.name + " · Instagram");
+      content.append(instagram);
+    }
     if (canContact) {
       const commission = element("a", "artist-commission", labels.commissionLink);
       commission.href = commissionLink(artist);

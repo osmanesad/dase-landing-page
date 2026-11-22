@@ -1,5 +1,12 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Instagram profilleri
+
+- Beyza (`@beyzaornekl`), İrem (`@atelier.tue`) ve Ayşegül (`@asheluldag`) için sanatçı kartlarına Instagram bağlantıları eklendi.
+- Üç hesabın herkese açık profil fotoğrafları indirilip kartlara eklendi. Fotoğraflar siteden sunuluyor; yüklenemeyen portre gizleniyor.
+- Profil başına üç gönderi görseli alınamadı; herkese açık profil yanıtlarında gönderi fotoğrafları sunulmadı. Profil fotoğrafları ürün fotoğrafı olarak kullanılmadı.
+- Profil bağlantıları, dosyaları ve bozuk portre davranışı mevcut testlere eklendi.
+
 ## 23 Kasım 2026 — Son sistem denetimi
 
 Aktif ana sayfa (`index.html`) ve Sanat sayfası (`art/index.html`) denetlendi.

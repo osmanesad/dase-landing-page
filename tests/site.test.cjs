@@ -90,6 +90,18 @@ test('home: all three Art entry points, translations and malformed saved languag
 test('art: profiles, 30 products, filtering, all dialogs, recommendations and profile return', () => {
   const { dom, w, d, errors } = page('art/index.html');
   assert.equal(d.querySelectorAll('.artist-profile').length, 3);
+  const instagramProfiles = { beyza: 'beyzaornekl', irem: 'atelier.tue', aysegul: 'asheluldag' };
+  for (const [id, handle] of Object.entries(instagramProfiles)) {
+    const link = d.querySelector(`#sanatci-${id} .artist-instagram`);
+    assert.equal(link.href, `https://www.instagram.com/${handle}/`);
+    assert.equal(link.target, '_blank');
+    assert(link.rel.includes('noopener'));
+    const photo = d.querySelector(`#sanatci-${id} .artist-avatar`);
+    assert(photo);
+    assert(fs.existsSync(path.join(root, 'art', photo.getAttribute('src'))));
+    photo.dispatchEvent(new w.Event('error'));
+    assert(!d.querySelector(`#sanatci-${id} .artist-avatar`));
+  }
   assert.equal(d.querySelectorAll('.product-card').length, 30);
   assert.equal(new Set(w.DASE_ART.products.map(p => p.id)).size, 30);
   for (const artist of w.DASE_ART.artists) {
