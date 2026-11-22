@@ -155,3 +155,49 @@ body:has(dialog[open]) { overflow:hidden; }
   .related-card > span { padding:8px; }
 }
 @media(prefers-reduced-motion:reduce) { .product-card .mini-mosaic { transition:none; } }
+.hero h1 { font-size:clamp(64px,7.7vw,126px); }
+.hero .intro { max-width:490px; }
+.hero-links { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-art { background:#deded2; min-height:470px; }
+.hero-art figcaption { color:var(--ink); max-width:calc(100% - 44px); font-size:14px; }
+.studio-collage { width:min(100%,520px); height:350px; position:relative; }
+.paper-study { position:absolute; width:49%; height:66%; left:6%; top:0; transform:rotate(-11deg); background:radial-gradient(ellipse at 35% 38%,#dc8e7188,transparent 48%),radial-gradient(ellipse at 65% 64%,#7c998c99,transparent 47%),#faf8f0; box-shadow:5px 8px 20px #1112; border:12px solid #faf8f0; }
+.canvas-study { position:absolute; width:48%; height:73%; right:3%; top:15%; transform:rotate(9deg); background:linear-gradient(135deg,transparent 35%,#d4794c 35% 52%,transparent 52%),linear-gradient(35deg,#344c40 35%,#a5ada0 35% 58%,#e7d7b8 58%); border:8px solid #9f886b; box-shadow:6px 10px 20px #1113; }
+.studio-collage .artwork { position:absolute; left:24%; bottom:0; width:36%; transform:rotate(-5deg); }
+.artists-section { padding:76px var(--pad); border-bottom:1px solid var(--line); scroll-margin-top:90px; }
+.artists-section .eyebrow { margin-bottom:18px; }
+.artists-section .section-heading p { max-width:320px; font-size:16px; }
+.artist-profiles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.artist-profile { min-width:0; border:1px solid var(--line); scroll-margin-top:90px; }
+.artist-visual { height:190px; overflow:hidden; position:relative; display:grid; place-items:center; }
+.artist-visual::after { content:""; width:46%; height:70%; box-shadow:5px 7px 15px #1112; transform:rotate(-7deg); }
+.artist-visual.watercolor { background:#e3e4dc; }
+.artist-visual.watercolor::after { background:radial-gradient(ellipse at 40% 35%,#cf8a7299,transparent 45%),radial-gradient(ellipse at 65% 70%,#829c8caa,transparent 50%),#faf8f0; border:10px solid #faf8f0; }
+.artist-visual.canvas { background:#d9d2c6; }
+.artist-visual.canvas::after { transform:rotate(6deg); background:linear-gradient(50deg,transparent 35%,#dd885c 35% 60%,transparent 60%),linear-gradient(125deg,#344c40 40%,#92a293 40% 70%,#f0dfbc 70%); border:6px solid #9f886b; }
+.artist-visual.mosaic { background:#344c40; }
+.artist-visual.mosaic::after { display:none; }
+.artist-visual .mini-mosaic { width:125px; }
+.artist-profile-copy { display:flex; flex-direction:column; align-items:flex-start; padding:26px; }
+.artist-profile h3 { font-size:40px; letter-spacing:-.055em; margin-bottom:16px; }
+.artist-profile .eyebrow { font-size:14px; letter-spacing:.03em; min-height:42px; margin-bottom:12px; }
+.artist-bio { min-height:144px; }
+.artist-commission { font-size:14px; text-decoration:underline; text-underline-offset:4px; margin-top:18px; }
+.artist-filters { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0; }
+.artist-filters button { min-height:44px; padding:10px 18px; background:transparent; border:1px solid var(--line); }
+.artist-filters button[aria-pressed="true"] { background:var(--green); color:var(--paper); }
+.collection-empty { border:1px solid var(--line); padding:32px; max-width:680px; margin-bottom:24px; }
+.collection-empty p { margin:0; }
+#collection-commission { margin-top:24px; }
+.commission-links { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0; }
+.commission-note { font-size:14px!important; }
+.product-media > .artist-visual { width:100%; height:100%; }
+@media(max-width:1000px) { .artist-profiles { gap:14px; } .artist-profile-copy { padding:20px; } .artist-bio { min-height:220px; } }
+@media(max-width:700px) {
+  .artist-profiles { grid-template-columns:1fr; gap:24px; }
+  .artist-bio { min-height:0; }
+  .artists-section { padding-top:48px; padding-bottom:48px; }
+  .hero h1 { font-size:clamp(58px,12vw,84px); }
+  .hero-art { min-height:350px; }
+  .studio-collage { height:260px; max-width:400px; }
+}

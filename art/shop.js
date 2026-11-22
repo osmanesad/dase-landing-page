@@ -1,55 +1,71 @@
-const { ordersEnabled, whatsapp, products } = window.DASE_ART;
+const { ordersEnabled, whatsapp, products, artists } = window.DASE_ART;
 const canContact = /^[1-9][0-9]{9,14}$/.test(whatsapp);
 const canOrder = ordersEnabled && /^[1-9][0-9]{9,14}$/.test(whatsapp);
 const copy = {
   tr: {
     coffee: "KAHVE", books: "KİTAPLAR", art: "SANAT", visit: "ZİYARET",
     nav: "Ana menü", language: "Dil seçimi", basket: "Sepet", close: "Kapat",
-    headline: "küçük<br>mozaikler.", intro: "İrem’in tasarladığı, fincan altına sığan mozaikler.",
-    description: "İrem’in tasarladığı bardak altlığı boyutunda mozaikler. DASE Coffee, Çukurcuma.",
+    headline: "bir kahve.<br>biraz sanat.", intro: "Kâğıtta, parçalarda, tuvalde. Beyza, İrem ve Ayşegül’ün dünyalarına DASE’de yer açıyoruz.",
+    description: "DASE’de sanat: Beyza, İrem ve Ayşegül’den suluboya kartpostallar, mozaikler, tuval resimleri ve kişiye özel resim siparişleri.",
     collectionLink: "Koleksiyona bak", illustration: "Mozaik illüstrasyonu",
-    collection: "mozaik koleksiyonu", coming: "Mozaikler yakında burada.", piece: "Mozaik",
+    collection: "eserleri keşfet.", coming: "Eserlerin fotoğrafları ve satış bilgileri hazırlanıyor.", piece: "Eser",
     photoSoon: "Fotoğraf yakında", sold: "Tükendi", add: "Sepete ekle",
     added: "Sepete eklendi", empty: "Sepetin boş.", subtotal: "Ürün toplamı",
     orderNote: "Stok, teslimat ve toplam tutarı WhatsApp’ta teyit ediyoruz. Ardından Tosla İşim ödeme linkini gönderiyoruz.",
     order: "WhatsApp’ta sipariş iste", decrease: "Adedi azalt", increase: "Adedi artır",
-    size: "Ölçü", message: "Merhaba DASE, şu mozaikler için sipariş vermek istiyorum:",
+    size: "Ölçü", message: "Merhaba DASE, şu eserler için sipariş vermek istiyorum:",
     confirm: "Stok ve teslimat seçeneklerini teyit edebilir misiniz?"
   },
   en: {
     coffee: "COFFEE", books: "BOOKS", art: "ART", visit: "VISIT",
     nav: "Main navigation", language: "Language selection", basket: "Basket", close: "Close",
-    headline: "little<br>mosaics.", intro: "Coaster-sized mosaics designed by İrem.",
-    description: "Coaster-sized mosaics designed by İrem. DASE Coffee, Çukurcuma.",
+    headline: "a coffee.<br>a little art.", intro: "On paper, in pieces, on canvas. Making room at DASE for the worlds of Beyza, İrem and Ayşegül.",
+    description: "Art at DASE: watercolour postcards, mosaics, canvas paintings and commissioned paintings by Beyza, İrem and Ayşegül.",
     collectionLink: "View the collection", illustration: "Mosaic illustration",
-    collection: "mosaic collection", coming: "The mosaics are coming soon.", piece: "Mosaic",
+    collection: "explore the works.", coming: "Photographs and sales details are being prepared.", piece: "Artwork",
     photoSoon: "Photo coming soon", sold: "Sold out", add: "Add to basket",
     added: "Added to basket", empty: "Your basket is empty.", subtotal: "Item subtotal",
     orderNote: "We confirm availability, delivery and the total on WhatsApp, then send you a Tosla İşim payment link.",
     order: "Request order on WhatsApp", decrease: "Decrease quantity", increase: "Increase quantity",
-    size: "Size", message: "Hello DASE, I’d like to order these mosaics:",
+    size: "Size", message: "Hello DASE, I’d like to order these artworks:",
     confirm: "Could you confirm availability and delivery options?"
   }
 };
 
 const byId = (id) => document.getElementById(id);
 Object.assign(copy.tr, {
-  artistLabel: "SANATÇIYLA TANIŞ", artistBio: "İrem’in DASE için tasarladığı bardak altlığı boyutundaki mozaikleri keşfet. Sanatçı ve üretim süreci hakkında daha fazla bilgi için bize yaz.",
+  artistLabel: "ÜÇ SANATÇI, FARKLI DÜNYALAR",
   artistContact: "Sanatçı hakkında bilgi al", byArtist: "Sanatçı: İrem", pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al",
-  related: "Diğer mozaiklere göz at", allProducts: "Tüm koleksiyonu gör", preview: "Temsili mozaik çizimi · Ürün fotoğrafları yakında.",
-  detailsSoon: "İrem’in bardak altlığı boyutundaki mozaik koleksiyonundan. Bu ürünün fotoğrafları, ölçüleri ve malzeme bilgileri hazırlanıyor. Ayrıntılar için bize yazabilirsin.",
+  related: "Diğer eserlere göz at", allProducts: "Tüm eserleri gör", preview: "Temsili çizim · Eser fotoğrafları yakında.",
+  detailsSoon: "Bu eserin fotoğrafları, ölçüleri ve malzeme bilgileri hazırlanıyor. Ayrıntılar için bize yazabilirsin.",
   paymentSoon: "Online ödeme henüz açık değil. WhatsApp üzerinden ürün ve satışa çıkış bilgisi alabilirsin.",
   paymentReady: "Ödeme, bağlantıda açılan sağlayıcının sayfasında tamamlanır. Stok ve teslimat bilgilerini satın almadan önce teyit et.",
-  askMessage: "Merhaba DASE, bu mozaik hakkında bilgi alabilir miyim?", artistMessage: "Merhaba DASE, İrem ve mozaik üretim süreci hakkında bilgi almak istiyorum.", image: "Görsel"
+  askMessage: "Merhaba DASE, bu eser hakkında bilgi alabilir miyim?", image: "Görsel",
+  illustration: "Renk ve doku çalışması · Temsili görsel", meetArtists: "Sanatçıları keşfet", artistsTitle: "üretenlerle tanış.", artistsIntro: "Önce sanatçıyı tanı, sonra eserlerine göz at.",
+  viewWorks: "Eserlerini keşfet", commissionLink: "Sana özel bir resim", allArtists: "Tüm sanatçılar", artistPrefix: "Sanatçı: ", worksSuffix: " · eserleri",
+  emptyWorks: "Bu sanatçının eserleri yakında burada. Bu sırada özel bir resim için fikrini paylaşabilirsin.",
+  commissionLabel: "BİRLİKTE BİR FİKİRDEN BAŞLAYALIM", commissionTitle: "senin için, sana özel.",
+  commissionIntro: "Beyza, İrem ve Ayşegül sipariş üzerine resim yapabilir. Aklındaki konuyu, renkleri ve düşündüğün ölçüyü paylaş; sanatçı, süre ve fiyatı birlikte netleştirelim.",
+  commissionNote: "Talebin DASE’nin WhatsApp hattına iletilir. Uygunluk, teslim süresi ve ödeme ayrıntıları görüşme sonrasında belirlenir.",
+  commissionMessage: "Merhaba DASE, sipariş üzerine bir resim yaptırmak istiyorum. Sanatçı: ", commissionPrompt: "Konu / renkler: \nDüşündüğüm ölçü: \nTercih ettiğim tarih: ", anyArtist: "Birlikte seçelim", filterLabel: "Sanatçıya göre eserler",
+  mosaic: "Mozaik", watercolor: "Suluboya kartpostal", canvas: "Tuval resmi"
 });
 Object.assign(copy.en, {
-  artistLabel: "MEET THE ARTIST", artistBio: "Explore the coaster-sized mosaics designed by İrem for DASE. Contact us to learn more about the artist and the making process.",
+  artistLabel: "THREE ARTISTS, DIFFERENT WORLDS",
   artistContact: "Ask about the artist", byArtist: "Artist: İrem", pay: "Buy with payment link", askProduct: "Ask on WhatsApp",
-  related: "Explore other mosaics", allProducts: "View the full collection", preview: "Illustrative mosaic drawing · Product photos coming soon.",
-  detailsSoon: "Part of İrem’s coaster-sized mosaic collection. Product photographs, dimensions and material details are being prepared. Contact us for more information.",
+  related: "Explore other works", allProducts: "View all works", preview: "Illustrative drawing · Artwork photographs coming soon.",
+  detailsSoon: "Photographs, dimensions and material details for this work are being prepared. Contact us for more information.",
   paymentSoon: "Online payment is not available yet. Ask us on WhatsApp about this piece and its release.",
   paymentReady: "Payment is completed on the provider’s linked page. Confirm availability and delivery before purchasing.",
-  askMessage: "Hello DASE, could you tell me more about this mosaic?", artistMessage: "Hello DASE, I would like to learn more about İrem and the mosaic making process.", image: "Image"
+  askMessage: "Hello DASE, could you tell me more about this artwork?", image: "Image",
+  illustration: "Colour and texture study · Illustrative visual", meetArtists: "Meet the artists", artistsTitle: "meet the makers.", artistsIntro: "Get to know each artist, then explore their work.",
+  viewWorks: "Explore their works", commissionLink: "A painting for you", allArtists: "All artists", artistPrefix: "Artist: ", worksSuffix: " · works",
+  emptyWorks: "This artist’s works are coming soon. In the meantime, share your idea for a commissioned painting.",
+  commissionLabel: "LET’S START WITH AN IDEA", commissionTitle: "made for you.",
+  commissionIntro: "Beyza, İrem and Ayşegül welcome painting commissions. Share your subject, colours and preferred size; we’ll discuss the artist, timing and price together.",
+  commissionNote: "Your request goes to DASE’s WhatsApp. Availability, delivery time and payment details are agreed after discussing your request.",
+  commissionMessage: "Hello DASE, I would like to commission a painting. Artist: ", commissionPrompt: "Subject / colours: \nPreferred size: \nPreferred date: ", anyArtist: "Help me choose", filterLabel: "Works by artist",
+  mosaic: "Mosaic", watercolor: "Watercolour postcard", canvas: "Canvas painting"
 });
 
 function whatsappLink(message) {
@@ -74,6 +90,11 @@ function openProduct(product) {
 }
 
 function illustration(product) {
+  if (product.category && product.category !== "mosaic") {
+    const study = element("div", "artist-visual " + (product.category === "watercolor" ? "watercolor" : "canvas"));
+    study.setAttribute("aria-hidden", "true");
+    return study;
+  }
   const board = element("div", "mini-mosaic");
   board.setAttribute("aria-hidden", "true");
   const palettes = [ ["#294236", "#68816b", "#e2cc9d"], ["#d37648", "#754533", "#f2e2bc"], ["#222e25", "#e2cc9d", "#d37648"] ];
@@ -93,6 +114,7 @@ const productDialog = byId("product-dialog");
 const basketDialog = byId("basket-dialog");
 const basketKey = "dase-art-basket-v1";
 let activeProduct;
+let selectedArtist = "all";
 let language = "tr";
 let labels = copy.tr;
 
@@ -110,7 +132,59 @@ function formatMoney(kurus) {
 }
 
 function productName(product) {
-  return product.name[language] || product.name.tr || product.name.en || labels.piece + " " + product.id.slice(1);
+  return product.name[language] || product.name.tr || product.name.en || (labels[product.category] || labels.piece) + " " + product.id.slice(1);
+}
+
+function artistFor(product) { return artists.find(artist => artist.id === product.artistId); }
+function localized(value) { return value[language] || value.tr || value.en; }
+function commissionLink(artist) {
+  return whatsappLink(labels.commissionMessage + (artist?.name || labels.anyArtist) + "\n" + labels.commissionPrompt);
+}
+function selectArtist(id, navigate = true) {
+  selectedArtist = artists.some(artist => artist.id === id) ? id : "all";
+  renderCatalog();
+  if (navigate) {
+    byId("koleksiyon").scrollIntoView({ behavior: "smooth" });
+    byId("collection-title").focus({ preventScroll: true });
+  }
+}
+function renderArtists() {
+  const profiles = byId("artist-profiles");
+  const commissions = byId("commission-links");
+  profiles.replaceChildren();
+  commissions.replaceChildren();
+  artists.forEach(artist => {
+    const profile = element("article", "artist-profile");
+    profile.id = "sanatci-" + artist.id;
+    const visual = element("div", "artist-visual " + artist.visual);
+    visual.setAttribute("aria-hidden", "true");
+    if (artist.visual === "mosaic") visual.append(illustration({ id: "artist-irem" }));
+    const content = element("div", "artist-profile-copy");
+    const name = element("h3", "", artist.name);
+    name.id = "artist-name-" + artist.id;
+    profile.setAttribute("aria-labelledby", name.id);
+    const works = element("button", "action primary", labels.viewWorks);
+    works.type = "button";
+    works.setAttribute("aria-label", artist.name + " · " + labels.viewWorks);
+    works.addEventListener("click", () => selectArtist(artist.id));
+    content.append(element("p", "eyebrow", localized(artist.medium)), name, element("p", "artist-bio", localized(artist.bio)), works);
+    if (canContact) {
+      const commission = element("a", "artist-commission", labels.commissionLink);
+      commission.href = commissionLink(artist);
+      commission.target = "_blank";
+      commission.rel = "noopener noreferrer";
+      commission.setAttribute("aria-label", artist.name + " · " + labels.commissionLink);
+      content.append(commission);
+      const link = element("a", "action", artist.name);
+      link.href = commissionLink(artist);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.setAttribute("aria-label", artist.name + " · " + labels.commissionLink);
+      commissions.append(link);
+    }
+    profile.append(visual, content);
+    profiles.append(profile);
+  });
 }
 
 function purchasable(product) {
@@ -144,9 +218,28 @@ function media(product, lazy = false) {
 
 function renderCatalog() {
   const grid = byId("products");
-  byId("collection-note").textContent = products.some(purchasable) ? "" : labels.coming;
+  const artist = artists.find(item => item.id === selectedArtist);
+  const visible = artist ? products.filter(product => product.artistId === artist.id) : products;
+  byId("collection-title").textContent = artist ? artist.name + labels.worksSuffix : labels.collection;
+  byId("collection-context").textContent = artist ? localized(artist.medium) : "";
+  byId("collection-note").textContent = visible.length && !visible.some(purchasable) ? labels.coming : "";
+  byId("collection-empty").hidden = visible.length > 0;
+  grid.hidden = visible.length === 0;
+  const inquiry = byId("collection-commission");
+  inquiry.hidden = !canContact;
+  if (canContact) inquiry.href = commissionLink(artist);
+  const filters = byId("artist-filters");
+  filters.setAttribute("aria-label", labels.filterLabel);
+  filters.replaceChildren();
+  [{ id: "all", name: labels.allArtists }, ...artists].forEach(item => {
+    const button = element("button", "", item.name);
+    button.type = "button";
+    button.setAttribute("aria-pressed", String(item.id === selectedArtist));
+    button.addEventListener("click", () => selectArtist(item.id, false));
+    filters.append(button);
+  });
   grid.replaceChildren();
-  for (const product of products) {
+  for (const product of visible) {
     const card = element("article", "product-card");
     const body = element("div", "product-body");
     const heading = element("h3");
@@ -159,7 +252,7 @@ function renderCatalog() {
       });
       heading.append(details);
     }
-    body.append(heading, element("p", "", productStatus(product)));
+    body.append(heading, element("p", "artist-credit", artistFor(product)?.name || "DASE"), element("p", "", productStatus(product)));
     card.append(media(product, true), body);
     grid.append(card);
   }
@@ -167,6 +260,9 @@ function renderCatalog() {
 
 function renderProduct() {
   const product = activeProduct;
+  const artist = artistFor(product);
+  byId("product-artist").textContent = labels.artistPrefix + (artist?.name || "DASE");
+  byId("product-artist").href = artist ? "#sanatci-" + artist.id : "#sanatci";
   byId("product-code").textContent = product.id;
   const photos = [...new Set([product.image, ...(product.images || [])].filter(Boolean))];
   const gallery = byId("product-gallery");
@@ -204,10 +300,10 @@ function renderProduct() {
   const contact = byId("product-whatsapp");
   contact.hidden = !canContact;
   contact.removeAttribute("href");
-  if (canContact) contact.href = whatsappLink(labels.askMessage + "\n" + product.id + " · " + productName(product));
+  if (canContact) contact.href = whatsappLink(labels.askMessage + "\n" + product.id + " · " + productName(product) + "\n" + labels.artistPrefix + (artist?.name || "DASE"));
   const related = byId("related-products");
   related.replaceChildren();
-  const others = products.filter(item => item.id !== product.id);
+  const others = products.filter(item => item.id !== product.id).sort((a, b) => Number(b.artistId === product.artistId) - Number(a.artistId === product.artistId));
   const start = products.indexOf(product) % Math.max(1, others.length);
   const suggestions = [...others.slice(start), ...others.slice(0, start)].slice(0, 3);
   suggestions.forEach(item => {
@@ -325,8 +421,7 @@ function setLanguage(next) {
   }
   renderCatalog();
   renderBasket();
-  byId("artist-contact").hidden = !canContact;
-  if (canContact) byId("artist-contact").href = whatsappLink(labels.artistMessage);
+  renderArtists();
   document.title = (language === "tr" ? "Sanat" : "Art") + " — DASE Coffee";
   byId("product-gallery").setAttribute("aria-label", language === "tr" ? "Görsel galerisi" : "Image gallery");
   if (activeProduct) renderProduct();
@@ -357,7 +452,7 @@ byId("basket-open").addEventListener("click", () => basketDialog.showModal());
 byId("product-artist").addEventListener("click", () => productDialog.close());
 byId("browse-collection").addEventListener("click", () => {
   productDialog.close();
-  byId("koleksiyon").scrollIntoView({ behavior: "smooth" });
+  selectArtist("all");
 });
 for (const button of document.querySelectorAll("[data-lang]")) {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));

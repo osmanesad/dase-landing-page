@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="İrem’in tasarladığı bardak altlığı boyutunda mozaikler. DASE Coffee, Çukurcuma.">
+  <meta name="description" content="DASE’de sanat: Beyza, İrem ve Ayşegül’den suluboya kartpostallar, mozaikler, tuval resimleri ve kişiye özel resim siparişleri.">
   <title>Art — DASE Coffee</title>
   <link rel="icon" href="../assets/favicon.png?v=1" type="image/png">
   <link rel="stylesheet" href="art.css">
@@ -35,30 +35,39 @@
     <section class="hero" aria-labelledby="title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="dot"></span><span>DASE COFFEE / ART</span></p>
-        <h1 id="title" data-copy="headline">küçük<br>mozaikler.</h1>
-        <p class="intro" data-copy="intro">İrem’in tasarladığı, fincan altına sığan mozaikler.</p>
-        <a class="action hero-action" href="#koleksiyon">
-          <span data-copy="collectionLink">Koleksiyona bak</span><span aria-hidden="true">↓</span>
-        </a>
+        <h1 id="title" data-copy="headline">bir kahve.<br>biraz sanat.</h1>
+        <p class="intro" data-copy="intro">Kâğıtta, parçalarda, tuvalde. Beyza, İrem ve Ayşegül’ün dünyalarına DASE’de yer açıyoruz.</p>
+        <div class="hero-links"><a class="action primary" href="#sanatci" data-copy="meetArtists">Sanatçıları keşfet</a>
+        <a class="action" href="#ozel-siparis" data-copy="commissionLink">Sana özel bir resim</a></div>
       </div>
       <figure class="hero-art">
-        <div class="artwork" id="hero-tiles" aria-hidden="true"></div>
-        <figcaption data-copy="illustration">Mozaik illüstrasyonu</figcaption>
+        <div class="studio-collage" aria-hidden="true"><div class="paper-study"></div><div class="canvas-study"></div><div class="artwork" id="hero-tiles"></div></div>
+        <figcaption data-copy="illustration">Renk ve doku çalışması · Temsili görsel</figcaption>
       </figure>
+    </section>
+
+    <section class="artists-section" id="sanatci" aria-labelledby="artist-heading">
+      <div class="section-heading"><div><p class="eyebrow" data-copy="artistLabel">ÜÇ SANATÇI, FARKLI DÜNYALAR</p><h2 id="artist-heading" data-copy="artistsTitle">üretenlerle tanış.</h2></div>
+      <p data-copy="artistsIntro">Önce sanatçıyı tanı, sonra eserlerine göz at.</p></div>
+      <div id="artist-profiles" class="artist-profiles"></div>
     </section>
 
     <section class="collection" id="koleksiyon" aria-labelledby="collection-title">
       <div class="section-heading">
-        <h2 id="collection-title" data-copy="collection">mozaik koleksiyonu</h2>
+        <h2 id="collection-title" tabindex="-1">eserleri keşfet.</h2>
         <p id="collection-note"></p>
       </div>
-      <noscript>Mozaik koleksiyonunu görüntülemek için JavaScript’i açın.</noscript>
+      <div id="artist-filters" class="artist-filters" role="group" aria-label="Sanatçıya göre eserler"></div>
+      <p id="collection-context"></p>
+      <noscript>Eserleri ve sanatçı profillerini görüntülemek için JavaScript’i açın. Bilgi ve özel resim siparişi için info@dasecoffee.co adresine yazabilirsiniz.</noscript>
       <div class="product-grid" id="products"></div>
+      <div id="collection-empty" class="collection-empty" hidden><p data-copy="emptyWorks">Bu sanatçının eserleri yakında burada. Bu sırada özel bir resim için fikrini paylaşabilirsin.</p></div>
+      <a id="collection-commission" class="action" target="_blank" rel="noopener noreferrer" data-copy="commissionLink">Sana özel bir resim</a>
     </section>
-    <section class="artist-section" id="sanatci" aria-labelledby="artist-heading">
-      <p class="eyebrow" data-copy="artistLabel">SANATÇIYLA TANIŞ</p>
-      <div><h2 id="artist-heading">İrem</h2><p data-copy="artistBio">İrem’in DASE için tasarladığı bardak altlığı boyutundaki mozaikleri keşfet. Sanatçı ve üretim süreci hakkında daha fazla bilgi için bize yaz.</p>
-      <a id="artist-contact" class="action" target="_blank" rel="noopener noreferrer" data-copy="artistContact">Sanatçı hakkında bilgi al</a></div>
+    <section class="artist-section" id="ozel-siparis" aria-labelledby="commission-heading">
+      <p class="eyebrow" data-copy="commissionLabel">BİRLİKTE BİR FİKİRDEN BAŞLAYALIM</p>
+      <div><h2 id="commission-heading" data-copy="commissionTitle">senin için,<br>sana özel.</h2><p data-copy="commissionIntro">Beyza, İrem ve Ayşegül sipariş üzerine resim yapabilir. Aklındaki konuyu, renkleri ve düşündüğün ölçüyü paylaş; sanatçı, süre ve fiyatı birlikte netleştirelim.</p>
+      <div id="commission-links" class="commission-links"></div><p class="commission-note" data-copy="commissionNote">Talebin DASE’nin WhatsApp hattına iletilir. Uygunluk, teslim süresi ve ödeme ayrıntıları görüşme sonrasında belirlenir.</p></div>
     </section>
   </main>
 
@@ -80,7 +89,7 @@
     <p id="product-description"></p>
     <p id="product-size"></p>
     <p id="product-price"></p>
-    <p class="product-artist"><a href="#sanatci" id="product-artist" data-copy="byArtist">Sanatçı: İrem</a></p>
+    <p class="product-artist"><a href="#sanatci" id="product-artist">Sanatçı profili</a></p>
     <div class="product-actions">
     <button id="product-add" class="action primary" type="button" data-copy="add">Sepete ekle</button>
     <a id="product-payment" class="action primary" target="_blank" rel="noopener noreferrer" hidden data-copy="pay">Ödeme linkiyle satın al</a>
@@ -88,7 +97,7 @@
     </div>
     <p class="order-note" id="product-payment-note"></p>
     <section class="related-section" aria-labelledby="related-title">
-      <h3 id="related-title" data-copy="related">Diğer mozaiklere göz at</h3>
+      <h3 id="related-title" data-copy="related">Diğer eserlere göz at</h3>
       <div id="related-products" class="related-products"></div>
     </section>
     <button id="browse-collection" class="action" type="button" data-copy="allProducts">Tüm koleksiyonu gör</button>
