@@ -115,6 +115,12 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
     assert(!d.querySelector(`#sanatci-${id} .artist-avatar`));
   }
   assert.equal(d.querySelectorAll('.product-card').length, 30);
+  const mixedOrder = [...d.querySelectorAll('.product-card')].map(card => card.dataset.productId);
+  assert.equal(new Set(mixedOrder).size, 30);
+  for (let index = 0; index < mixedOrder.length; index += 3) {
+    const artistIds = mixedOrder.slice(index, index + 3).map(id => w.DASE_ART.products.find(p => p.id === id).artistId);
+    assert.equal(new Set(artistIds).size, 3, 'each group of three represents all artists');
+  }
   assert.equal(new Set(w.DASE_ART.products.map(p => p.id)).size, 30);
   for (const artist of w.DASE_ART.artists) {
     click(d, `#sanatci-${artist.id} button`);
@@ -145,6 +151,7 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
   assert.equal(d.activeElement.dataset.artistFilter, 'beyza');
   click(d, '.product-card button'); click(d, '#browse-collection');
   assert.equal(d.querySelectorAll('.product-card').length, 30);
+  assert.deepEqual([...d.querySelectorAll('.product-card')].map(card => card.dataset.productId), mixedOrder);
   for (const link of d.querySelectorAll('#commission-links a')) {
     assert(new URL(link.href).searchParams.get('text').includes(link.textContent));
   }
@@ -160,7 +167,7 @@ test('art: profiles, 30 products, filtering, all dialogs, recommendations and pr
 
 test('gallery and broken image fallback; disabled sales keep checkout hidden', () => {
   const { dom, d, w, errors } = page('art/index.html', { configure(data) { available(data.products[0]); } });
-  click(d, '.product-card button');
+  click(d, '[data-product-id="M01"] button');
   assert.equal(d.querySelectorAll('#product-gallery button').length, 2);
   click(d, '#product-gallery button:nth-child(2)');
   assert.equal(d.querySelector('#product-image img').getAttribute('src'), 'photos/detail.webp');
@@ -175,7 +182,7 @@ test('gallery and broken image fallback; disabled sales keep checkout hidden', (
 
 test('enabled sales: stock, basket totals, persistence, quantity bounds and WhatsApp order', () => {
   const { dom, w, d, errors } = page('art/index.html', { configure(data) { data.ordersEnabled = true; available(data.products[0]); } });
-  click(d, '.product-card button');
+  click(d, '[data-product-id="M01"] button');
   assert(!d.querySelector('#product-payment').hidden);
   assert.equal(d.querySelector('#product-payment').href, 'https://checkout.example.test/item');
   click(d, '#product-add'); click(d, '#basket-open');
@@ -201,11 +208,11 @@ test('enabled sales: stock, basket totals, persistence, quantity bounds and What
 test('payment rejects unsafe URLs and unavailable stock; restore handles stale and malformed storage', () => {
   for (const paymentUrl of ['javascript:alert(1)', 'http://checkout.example', 'https://user:pass@checkout.example', 'broken']) {
     const { dom, d } = page('art/index.html', { configure(data) { data.ordersEnabled = true; available(data.products[0]); data.products[0].paymentUrl = paymentUrl; } });
-    click(d, '.product-card button'); assert(d.querySelector('#product-payment').hidden); dom.window.close();
+    click(d, '[data-product-id="M01"] button'); assert(d.querySelector('#product-payment').hidden); dom.window.close();
   }
   for (const status of ['sold', 'available']) {
     const { dom, d } = page('art/index.html', { configure(data) { data.ordersEnabled = true; available(data.products[0]); Object.assign(data.products[0], { status, stock: 0 }); } });
-    click(d, '.product-card button'); assert(d.querySelector('#product-add').hidden); assert(d.querySelector('#product-payment').hidden);
+    click(d, '[data-product-id="M01"] button'); assert(d.querySelector('#product-add').hidden); assert(d.querySelector('#product-payment').hidden);
     assert.equal(d.querySelector('#product-price').textContent, 'Tükendi'); dom.window.close();
   }
   for (const saved of ['broken', 'null', '{"M01":99,"unknown":4,"B01":2}', '{"M01":-2}', '{"M01":1.5}']) {
@@ -218,7 +225,7 @@ test('both pages remain usable when localStorage is unavailable', () => {
   for (const file of ['index.html', 'art/index.html']) {
     const { dom, d, errors } = page(file, { storageBlocked: true });
     click(d, '[data-lang="en"]'); assert.equal(d.documentElement.lang, 'en');
-    if (file.startsWith('art/')) { click(d, '.product-card button'); assert(d.querySelector('#product-dialog').open); }
+    if (file.startsWith('art/')) { click(d, '[data-product-id="M01"] button'); assert(d.querySelector('#product-dialog').open); }
     assert.equal(errors.length, 0); dom.window.close();
   }
 });

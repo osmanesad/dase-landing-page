@@ -1,5 +1,11 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Karma eser sıralaması
+
+- “Tüm sanatçılar” listesi Beyza, İrem ve Ayşegül’den birer eser dönüşümlü gösterecek şekilde düzenlendi. Mozaiklerin listenin başında toplu görünmesi giderildi.
+- Sanatçı filtreleri kendi eser sırasını korur. Dil değiştirirken ve tüm eserlere dönerken karma liste sırası sabit kalır.
+- Ürün kaybı/tekrarı olmaması ve her üçlü grupta üç sanatçının bulunması test edildi.
+
 ## 23 Kasım 2026 — Yayına hazırlık açıklaması
 
 - Sanat sayfasının açılışına Türkçe/İngilizce “hazırlanıyor / yakında” açıklaması eklendi. Eserlerin taslak ve temsili olduğu, satışın henüz açılmadığı açıklandı. Açıklama JavaScript kapalıyken de görünür.

@@ -249,10 +249,25 @@ function media(product, lazy = false) {
   return wrapper;
 }
 
+function mixedCatalog() {
+  const groups = new Map(artists.map(artist => [artist.id, []]));
+  for (const product of products) {
+    if (!groups.has(product.artistId)) groups.set(product.artistId, []);
+    groups.get(product.artistId).push(product);
+  }
+  const rows = [...groups.values()];
+  const result = [];
+  const length = Math.max(0, ...rows.map(row => row.length));
+  for (let index = 0; index < length; index++) {
+    for (const row of rows) if (row[index]) result.push(row[index]);
+  }
+  return result;
+}
+
 function renderCatalog() {
   const grid = byId("products");
   const artist = artists.find(item => item.id === selectedArtist);
-  const visible = artist ? products.filter(product => product.artistId === artist.id) : products;
+  const visible = artist ? products.filter(product => product.artistId === artist.id) : mixedCatalog();
   byId("collection-title").textContent = artist ? artist.name + labels.worksSuffix : labels.collection;
   byId("collection-context").textContent = artist ? localized(artist.medium) : "";
   byId("collection-note").textContent = visible.length && !visible.some(purchasable) ? labels.coming : "";
@@ -275,6 +290,7 @@ function renderCatalog() {
   grid.replaceChildren();
   for (const product of visible) {
     const card = element("article", "product-card");
+    card.dataset.productId = product.id;
     const body = element("div", "product-body");
     const heading = element("h3");
     {
