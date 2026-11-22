@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="İrem’in tasarladığı bardak altlığı boyutunda mozaikler. DASE Coffee, Çukurcuma.">
+  <title>Art — DASE Coffee</title>
+  <link rel="icon" href="../assets/favicon.png?v=1" type="image/png">
+  <link rel="stylesheet" href="art.css">
+  <script src="catalog.js" defer></script>
+  <script src="shop.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">dase <small>coffee</small></a>
+    <nav aria-label="Ana menü" data-aria="nav">
+      <a href="../index.html#coffee" data-copy="coffee">KAHVE</a>
+      <a href="../index.html#books" data-copy="books">KİTAPLAR</a>
+      <a href="index.html" aria-current="page" data-copy="art">SANAT</a>
+      <a href="../index.html#visit" data-copy="visit">ZİYARET</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang" role="group" aria-label="Dil seçimi" data-aria="language">
+        <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button id="basket-open" type="button" class="basket-open" aria-haspopup="dialog">
+        <span data-copy="basket">Sepet</span> <span id="basket-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span><span>DASE COFFEE / ART</span></p>
+        <h1 id="title" data-copy="headline">küçük<br>mozaikler.</h1>
+        <p class="intro" data-copy="intro">İrem’in tasarladığı, fincan altına sığan mozaikler.</p>
+        <a class="action hero-action" href="#koleksiyon">
+          <span data-copy="collectionLink">Koleksiyona bak</span><span aria-hidden="true">↓</span>
+        </a>
+      </div>
+      <figure class="hero-art">
+        <div class="artwork" id="hero-tiles" aria-hidden="true"></div>
+        <figcaption data-copy="illustration">Mozaik illüstrasyonu</figcaption>
+      </figure>
+    </section>
+
+    <section class="collection" id="koleksiyon" aria-labelledby="collection-title">
+      <div class="section-heading">
+        <h2 id="collection-title" data-copy="collection">mozaik koleksiyonu</h2>
+        <p id="collection-note"></p>
+      </div>
+      <noscript>Mozaik koleksiyonunu görüntülemek için JavaScript’i açın.</noscript>
+      <div class="product-grid" id="products"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="../index.html">dase <small>coffee</small></a>
+    <span class="eyebrow">ÇUKURCUMA, BEYOĞLU</span>
+    <a href="mailto:info@dasecoffee.co">info@dasecoffee.co</a>
+  </footer>
+
+  <dialog id="product-dialog" aria-labelledby="product-title">
+    <div class="dialog-top">
+      <p class="eyebrow" id="product-code"></p>
+      <form method="dialog"><button class="close" data-aria="close" aria-label="Kapat">×</button></form>
+    </div>
+    <div id="product-image"></div>
+    <h2 id="product-title"></h2>
+    <p id="product-description"></p>
+    <p id="product-size"></p>
+    <p id="product-price"></p>
+    <button id="product-add" class="action primary" type="button" data-copy="add">Sepete ekle</button>
+  </dialog>
+
+  <dialog id="basket-dialog" aria-labelledby="basket-title">
+    <div class="dialog-top">
+      <h2 id="basket-title" data-copy="basket">Sepet</h2>
+      <form method="dialog"><button class="close" data-aria="close" aria-label="Kapat">×</button></form>
+    </div>
+    <p id="basket-empty" data-copy="empty">Sepetin boş.</p>
+    <ul id="basket-items"></ul>
+    <div id="basket-summary" hidden>
+      <div class="total"><span data-copy="subtotal">Ürün toplamı</span><strong id="basket-total"></strong></div>
+      <p class="order-note" data-copy="orderNote">Stok, teslimat ve toplam tutarı WhatsApp’ta teyit ediyoruz. Ardından Tosla İşim ödeme linkini gönderiyoruz.</p>
+      <a id="order-link" class="action primary" target="_blank" rel="noopener noreferrer">
+        <span data-copy="order">WhatsApp’ta sipariş iste</span><span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </dialog>
+  <p class="sr-only" id="announcement" role="status"></p>
+</body>
+</html>
