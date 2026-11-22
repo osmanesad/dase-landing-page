@@ -28,3 +28,9 @@ The WhatsApp number is configured once in `whatsapp`. Product inquiries include 
 The catalog contains ten mosaic drafts for Irem (M01-M10), ten watercolour postcard drafts for Beyza (B01-B10), and ten canvas painting drafts for Aysegul (A01-A10). These are placeholders with illustrative visuals, not confirmed artworks or stock. Replace each draft's photographs, descriptions, dimensions, prices and stock with real information before enabling sales. Irem's profile also covers canvas paintings; add those as new products with `artistId: "irem"` and `category: "canvas"`. Decorative profile visuals are abstract technique studies, not artist portraits or actual artworks.
 
 Verify that the desktop Art menu, mobile Art link and home page art card open the same page. The Art page logo and Coffee/Books/Visit links should return to the home page.
+
+## Verification
+
+Development checks require a Node.js version supported by JSDOM: 22.22.2+, 24.15.0+ in their respective release lines, or 26+. Run `npm ci`, then `npm test`. The site itself remains buildless: do not upload `node_modules`, tests or npm files to static hosting unless your host serves directly from the repository.
+
+The seven test groups execute the actual HTML and scripts in JSDOM and check local links/assets, translations, profiles, all 30 product dialogs, artist filtering, related works, gallery errors, commissions, basket persistence, stock limits and payment gating. JSDOM does not render layouts; dialog and scroll platform methods are shimmed. The tests do not contact WhatsApp or payment services, validate a merchant account, or charge a payment. See `CHANGELOG.md` for the latest audit findings and remaining content requirements.

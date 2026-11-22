@@ -1,0 +1,42 @@
+# Değişiklikler ve denetim
+
+## 23 Kasım 2026 — Son sistem denetimi
+
+Aktif ana sayfa (`index.html`) ve Sanat sayfası (`art/index.html`) denetlendi.
+
+### Düzeltilen hatalar
+
+- Sanatçı filtresi yeniden çizildiğinde kaybolan klavye odağı korunuyor.
+- Ürün detayından sanatçı profiline dönüşte pencere kapanıyor, doğru profile kaydırılıyor ve klavye odağı profile taşınıyor.
+- Diğer eser önerileri aynı sanatçının eserlerini önce gösteriyor; mevcut eserin tekrar önerilmesi engelleniyor.
+- Sanat sayfasının mobilde tamamen gizlenen menüsü erişilebilir ikinci bir satırda gösteriliyor. Tablet açılışı tek sütuna alındı; dar ekran başlığı ve kontrolleri düzenlendi.
+- Yüklenemeyen fotoğraflar için anlaşılır geri bildirim eklendi.
+- Stoku sıfır olan satıştaki eserler “Tükendi” olarak gösteriliyor.
+- Sepet miktarlarında negatif, kesirli, geçersiz veya stok üstü değerler reddediliyor. Başarısız eklemelerde başarı mesajı gösterilmiyor.
+- Sepetin WhatsApp mesajına sanatçı adı eklendi. Doğrudan ödeme linki olmayan satıştaki ürünlerde WhatsApp sipariş açıklaması gösteriliyor.
+- Ana sayfada bozuk/kasıtsız kaydedilmiş dil değerlerinin (`toString`, `constructor` vb.) çevirileri bozması düzeltildi.
+- Menü etiketleri, Türkçe başlangıç başlıkları, azaltılmış hareket tercihi, bölüm kaydırma boşlukları ve koyu bölümde odak görünürlüğü düzenlendi.
+- Ana sayfanın sanat tanıtımı üç sanatçının güncel üretim alanlarına uyarlandı.
+
+### Doğrulama
+
+`npm test` ile 7 test grubu çalışır:
+
+1. İki sayfanın yerel bağlantıları, dosyaları, bölüm hedefleri, benzersiz kimlikleri ve JavaScript sözdizimi.
+2. Ana sayfadaki üç Sanat girişi, çeviriler ve bozuk dil tercihleri.
+3. Üç profil, 30 ürün, filtreleme, detaylar, aynı sanatçıdan öneriler, profil dönüşü ve özel sipariş bağlantıları.
+4. Galeri seçimi, bozuk fotoğraf geri bildirimi ve satış kapalıyken ödeme düğmesinin gizlenmesi.
+5. Satış açık örnek verilerle stok, sepet miktarı/toplamı, kayıt ve WhatsApp sipariş mesajı.
+6. Geçersiz ödeme URL’leri, tükenmiş stok ve bozuk/eski sepet kayıtları.
+7. Tarayıcı depolaması kullanılamadığında iki sayfanın çalışması.
+
+Testler gerçek sayfa HTML’ini ve uygulama kodunu JSDOM ortamında çalıştırır. Yerleşim çizimi yapılmaz; pencere ve kaydırma API’leri test ortamında taklit edilir. Bağlı tarayıcı olmadığından masaüstü/mobil görsel doğrulama ve gerçek tarayıcı pencere davranışı bu denetimde doğrulanamadı. WhatsApp hesabının erişilebilirliği, harita/Instagram servislerinin dış durumu, ödeme sağlayıcı hesabı ve gerçek ödeme işlemi bu testlerin kapsamı dışındadır.
+
+### Mevcut sistem
+
+- Beyza: 10 suluboya kartpostal taslağı (B01–B10).
+- İrem: 10 mozaik taslağı (M01–M10); profili tuval çalışmalarını da kapsar.
+- Ayşegül: 10 tuval resmi taslağı (A01–A10).
+- Sanatçı profilleri, sanatçıya göre eserler, ürün detayları, galeri desteği, ilgili eserler, WhatsApp bilgi/özel sipariş ve ürün bazında ödeme bağlantısı desteği mevcuttur.
+
+Ürünler temsili görseller kullanan taslaklardır; `ordersEnabled: false` korunmuştur. Gerçek fotoğraflar, ürün açıklamaları/ölçüleri, fiyatlar, stoklar ve ödeme sağlayıcı linkleri tamamlanmadan satışa açılmamalıdır. Kart bilgisi sitede toplanmaz. GitHub’a gönderim, canlı hosting dağıtımının doğrulandığı anlamına gelmez.

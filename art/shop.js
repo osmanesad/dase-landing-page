@@ -35,7 +35,7 @@ const copy = {
 const byId = (id) => document.getElementById(id);
 Object.assign(copy.tr, {
   artistLabel: "ÜÇ SANATÇI, FARKLI DÜNYALAR",
-  artistContact: "Sanatçı hakkında bilgi al", byArtist: "Sanatçı: İrem", pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al",
+  pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al", photoUnavailable: "Görsel yüklenemedi. Fotoğraf için bize yazabilirsin.",
   related: "Diğer eserlere göz at", allProducts: "Tüm eserleri gör", preview: "Temsili çizim · Eser fotoğrafları yakında.",
   detailsSoon: "Bu eserin fotoğrafları, ölçüleri ve malzeme bilgileri hazırlanıyor. Ayrıntılar için bize yazabilirsin.",
   paymentSoon: "Online ödeme henüz açık değil. WhatsApp üzerinden ürün ve satışa çıkış bilgisi alabilirsin.",
@@ -52,7 +52,7 @@ Object.assign(copy.tr, {
 });
 Object.assign(copy.en, {
   artistLabel: "THREE ARTISTS, DIFFERENT WORLDS",
-  artistContact: "Ask about the artist", byArtist: "Artist: İrem", pay: "Buy with payment link", askProduct: "Ask on WhatsApp",
+  pay: "Buy with payment link", askProduct: "Ask on WhatsApp", photoUnavailable: "The image could not be loaded. Contact us for a photograph.",
   related: "Explore other works", allProducts: "View all works", preview: "Illustrative drawing · Artwork photographs coming soon.",
   detailsSoon: "Photographs, dimensions and material details for this work are being prepared. Contact us for more information.",
   paymentSoon: "Online payment is not available yet. Ask us on WhatsApp about this piece and its release.",
@@ -140,12 +140,19 @@ function localized(value) { return value[language] || value.tr || value.en; }
 function commissionLink(artist) {
   return whatsappLink(labels.commissionMessage + (artist?.name || labels.anyArtist) + "\n" + labels.commissionPrompt);
 }
+function scrollToSection(node) {
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  node.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+}
 function selectArtist(id, navigate = true) {
+  const restoreFilterFocus = document.activeElement?.dataset.artistFilter;
   selectedArtist = artists.some(artist => artist.id === id) ? id : "all";
   renderCatalog();
   if (navigate) {
-    byId("koleksiyon").scrollIntoView({ behavior: "smooth" });
+    scrollToSection(byId("koleksiyon"));
     byId("collection-title").focus({ preventScroll: true });
+  } else if (restoreFilterFocus) {
+    byId("artist-filters").querySelector(`[data-artist-filter="${selectedArtist}"]`)?.focus({ preventScroll: true });
   }
 }
 function renderArtists() {
@@ -194,15 +201,14 @@ function purchasable(product) {
 }
 
 function productStatus(product) {
-  if (product.status === "sold") return labels.sold;
+  if (product.status === "sold" || (product.status === "available" && product.stock === 0)) return labels.sold;
   if (purchasable(product)) return formatMoney(product.priceKurus);
   return product.image ? labels.coming : labels.photoSoon;
 }
 
 function media(product, lazy = false) {
   const wrapper = element("div", "product-media");
-  const placeholder = element("span", "placeholder", product.id);
-  placeholder.setAttribute("aria-hidden", "true");
+  const placeholder = element("span", "image-error", labels.photoUnavailable);
   if (!product.image) {
     wrapper.append(illustration(product));
     return wrapper;
@@ -210,7 +216,10 @@ function media(product, lazy = false) {
   const photo = element("img");
   photo.alt = productName(product);
   if (lazy) photo.loading = "lazy";
-  photo.addEventListener("error", () => photo.replaceWith(placeholder), { once: true });
+  photo.addEventListener("error", () => {
+    photo.replaceWith(placeholder);
+    if (wrapper.closest("#product-image")) byId("product-visual-note").textContent = labels.photoUnavailable;
+  }, { once: true });
   photo.src = product.image;
   wrapper.append(photo);
   return wrapper;
@@ -234,6 +243,7 @@ function renderCatalog() {
   [{ id: "all", name: labels.allArtists }, ...artists].forEach(item => {
     const button = element("button", "", item.name);
     button.type = "button";
+    button.dataset.artistFilter = item.id;
     button.setAttribute("aria-pressed", String(item.id === selectedArtist));
     button.addEventListener("click", () => selectArtist(item.id, false));
     filters.append(button);
@@ -296,16 +306,17 @@ function renderProduct() {
   payment.hidden = !paymentUrl;
   payment.removeAttribute("href");
   if (paymentUrl) payment.href = paymentUrl;
-  byId("product-payment-note").textContent = paymentUrl ? labels.paymentReady : labels.paymentSoon;
+  byId("product-payment-note").textContent = paymentUrl ? labels.paymentReady : purchasable(product) ? labels.orderNote : labels.paymentSoon;
   const contact = byId("product-whatsapp");
   contact.hidden = !canContact;
   contact.removeAttribute("href");
   if (canContact) contact.href = whatsappLink(labels.askMessage + "\n" + product.id + " · " + productName(product) + "\n" + labels.artistPrefix + (artist?.name || "DASE"));
   const related = byId("related-products");
   related.replaceChildren();
-  const others = products.filter(item => item.id !== product.id).sort((a, b) => Number(b.artistId === product.artistId) - Number(a.artistId === product.artistId));
-  const start = products.indexOf(product) % Math.max(1, others.length);
-  const suggestions = [...others.slice(start), ...others.slice(0, start)].slice(0, 3);
+  const sameArtist = products.filter(item => item.artistId === product.artistId);
+  const position = sameArtist.findIndex(item => item.id === product.id);
+  const others = [...sameArtist.slice(position + 1), ...sameArtist.slice(0, Math.max(0, position))];
+  const suggestions = [...others, ...products.filter(item => item.artistId !== product.artistId)].slice(0, 3);
   suggestions.forEach(item => {
     const button = element("button", "related-card");
     button.type = "button";
@@ -331,7 +342,7 @@ function restoreBasket() {
 
 function setQuantity(id, quantity) {
   const product = catalog.get(id);
-  if (!purchasable(product) || quantity > product.stock) return;
+  if (!Number.isSafeInteger(quantity) || quantity < 0 || !purchasable(product) || quantity > product.stock) return false;
   if (quantity <= 0) basket.delete(id);
   else basket.set(id, quantity);
   try {
@@ -340,6 +351,7 @@ function setQuantity(id, quantity) {
     // Sepet açık sayfada tutulur.
   }
   renderBasket();
+  return true;
 }
 
 function quantityButton(symbol, name, product, quantity, change) {
@@ -365,7 +377,7 @@ function renderBasket() {
     const subtotal = quantity * product.priceKurus;
     count += quantity;
     total += subtotal;
-    messages.push(id + " · " + name + " × " + quantity + " · " + formatMoney(subtotal));
+    messages.push(id + " · " + name + " · " + (artistFor(product)?.name || "DASE") + " × " + quantity + " · " + formatMoney(subtotal));
 
     const row = element("li", "basket-row");
     const item = element("div");
@@ -444,12 +456,20 @@ function renderIllustration() {
 
 byId("product-add").addEventListener("click", () => {
   const id = activeProduct.id;
-  setQuantity(id, (basket.get(id) || 0) + 1);
+  if (!setQuantity(id, (basket.get(id) || 0) + 1)) return;
   byId("announcement").textContent = productName(activeProduct) + " · " + labels.added;
   productDialog.close();
 });
 byId("basket-open").addEventListener("click", () => basketDialog.showModal());
-byId("product-artist").addEventListener("click", () => productDialog.close());
+byId("product-artist").addEventListener("click", (event) => {
+  event.preventDefault();
+  productDialog.close();
+  const artist = artistFor(activeProduct);
+  const profile = artist ? byId("sanatci-" + artist.id) : byId("sanatci");
+  profile.setAttribute("tabindex", "-1");
+  profile.focus({ preventScroll: true });
+  scrollToSection(profile);
+});
 byId("browse-collection").addEventListener("click", () => {
   productDialog.close();
   selectArtist("all");

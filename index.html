@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DASE Coffee — coffee, books & art in Beyoğlu, Istanbul." />
-  <title>DASE Coffee — Beyoğlu, Istanbul</title>
+  <meta name="description" content="DASE Coffee — Beyoğlu, İstanbul'da kahve, kitap ve sanat." />
+  <title>DASE Coffee — Beyoğlu, İstanbul</title>
   <link rel="icon" type="image/png" href="assets/favicon.png?v=1" />
   <link rel="apple-touch-icon" href="assets/favicon.png?v=1" />
   <style>
@@ -107,7 +107,8 @@
     .orb{z-index:0}
     .card:hover{transform:none;background:rgba(52,76,64,.055)}
     .footer-links a:hover,nav a:hover{color:var(--orange)}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation-duration:66s}*{transition:none!important}}
+    [id]{scroll-margin-top:90px}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}*{transition:none!important}}
     @media(max-width:600px){
       header{padding:14px 20px}.brand{font-size:22px}main{padding-top:58px}
       .hero-main{min-height:68vh;padding-top:55px;padding-bottom:28px}
@@ -137,7 +138,7 @@
 <body>
   <header>
     <a class="brand" href="#top">dase <small>coffee</small></a>
-    <nav class="mono">
+    <nav class="mono" aria-label="Ana menü">
       <a href="#about" data-i18n="navAbout">HAKKIMIZDA</a>
       <a href="#coffee" data-i18n="navCoffee">KAHVE</a>
       <a href="#books" data-i18n="navBooks">KİTAPLAR</a>
@@ -181,7 +182,7 @@
       <div class="cards">
         <article class="card" id="coffee"><span class="card-no">01.1</span><div><h3 data-i18n="coffeeTitle">kahve</h3><p data-i18n="coffeeCopy">Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
         <article class="card" id="books"><span class="card-no">01.2</span><div><h3 data-i18n="booksTitle">kitaplar</h3><p data-i18n="booksCopy">Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
-        <a class="card" id="art" href="art/index.html"><span class="card-no">01.3</span><div><h3 data-i18n="artTitle">sanat</h3><p data-i18n="artCopy">Baskılar, objeler, küçük sergiler ve birlikte üretmeye açık atölyeler.</p></div><span class='arrow-icon' aria-hidden='true'></span></a>
+        <a class="card" id="art" href="art/index.html"><span class="card-no">01.3</span><div><h3 data-i18n="artTitle">sanat</h3><p data-i18n="artCopy">Beyza, İrem ve Ayşegül’den suluboya kartpostallar, mozaikler, tuval resimleri ve sana özel çalışmalar.</p></div><span class='arrow-icon' aria-hidden='true'></span></a>
       </div>
     </section>
 
@@ -236,7 +237,7 @@
         aboutLabel: "01 / DASE COFFEE", aboutTitle: "Tek bir şey olmaya çalışmıyoruz.",
         coffeeTitle: "kahve", coffeeCopy: "Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.",
         booksTitle: "kitaplar", booksCopy: "Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.",
-        artTitle: "sanat", artCopy: "Baskılar, objeler, küçük sergiler ve birlikte üretmeye açık atölyeler.",
+        artTitle: "sanat", artCopy: "Beyza, İrem ve Ayşegül’den suluboya kartpostallar, mozaikler, tuval resimleri ve sana özel çalışmalar.",
         noteLabel: "02 / BİR NOT", noteTitle: "Bir yere sadece kahve içmek için gitmeyiz.",
         stayLonger: "biraz<br>daha<br>kal.", manifestoCopy: "DASE Coffee'nin acele ettirmeyen bir yer olmasını istiyoruz. Bir kahve al, bir kitaba bak, bir şeyi merak et, biriyle konuş ya da hiçbir şey yapma.",
         visitLabel: "03 / ZİYARET", openingLabel: "AÇILIŞ", openingPlace: "2026<br>İstanbul", visitCopy: "AÇILIŞ TARİHİ YAKINDA DUYURULACAK.", directionsLink: "HARİTADA GÖR",
@@ -255,7 +256,7 @@
         aboutLabel: "01 / DASE COFFEE", aboutTitle: "We are not trying to be just one thing.",
         coffeeTitle: "coffee", coffeeCopy: "Espresso, V60 and carefully selected beans. A little more time in every cup.",
         booksTitle: "books", booksCopy: "Literature, art and design. Books waiting to be discovered on our shelves.",
-        artTitle: "art", artCopy: "Prints, objects, small exhibitions and workshops for making things together.",
+        artTitle: "art", artCopy: "Watercolour postcards, mosaics, canvas paintings and commissions by Beyza, İrem and Ayşegül.",
         noteLabel: "02 / A NOTE", noteTitle: "We do not go somewhere just to drink coffee.",
         stayLonger: "stay<br>a little<br>longer.", manifestoCopy: "We want DASE Coffee to be a place that never rushes you. Have a coffee, look through a book, get curious, talk to someone or do nothing at all.",
         visitLabel: "03 / VISIT", openingLabel: "OPENING", openingPlace: "2026<br>Istanbul", visitCopy: "THE OPENING DATE WILL BE ANNOUNCED SOON.", directionsLink: "VIEW ON MAPS",
@@ -264,7 +265,7 @@
     };
 
     function setLanguage(language) {
-      const lang = translations[language] ? language : "tr";
+      const lang = Object.hasOwn(translations, language) ? language : "tr";
       const copy = translations[lang];
       document.documentElement.lang = lang;
       document.title = copy.title;
@@ -277,6 +278,7 @@
         button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
       });
       document.querySelector(".lang").setAttribute("aria-label", lang === "tr" ? "Dil seçimi" : "Language selection");
+      document.querySelector("nav").setAttribute("aria-label", lang === "tr" ? "Ana menü" : "Main navigation");
       try {
         localStorage.setItem("dase-language", lang);
       } catch (error) {
