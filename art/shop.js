@@ -1,4 +1,5 @@
 const { ordersEnabled, whatsapp, products } = window.DASE_ART;
+const canContact = /^[1-9][0-9]{9,14}$/.test(whatsapp);
 const canOrder = ordersEnabled && /^[1-9][0-9]{9,14}$/.test(whatsapp);
 const copy = {
   tr: {
@@ -32,6 +33,60 @@ const copy = {
 };
 
 const byId = (id) => document.getElementById(id);
+Object.assign(copy.tr, {
+  artistLabel: "SANATÇIYLA TANIŞ", artistBio: "İrem’in DASE için tasarladığı bardak altlığı boyutundaki mozaikleri keşfet. Sanatçı ve üretim süreci hakkında daha fazla bilgi için bize yaz.",
+  artistContact: "Sanatçı hakkında bilgi al", byArtist: "Sanatçı: İrem", pay: "Ödeme linkiyle satın al", askProduct: "WhatsApp’tan bilgi al",
+  related: "Diğer mozaiklere göz at", allProducts: "Tüm koleksiyonu gör", preview: "Temsili mozaik çizimi · Ürün fotoğrafları yakında.",
+  detailsSoon: "İrem’in bardak altlığı boyutundaki mozaik koleksiyonundan. Bu ürünün fotoğrafları, ölçüleri ve malzeme bilgileri hazırlanıyor. Ayrıntılar için bize yazabilirsin.",
+  paymentSoon: "Online ödeme henüz açık değil. WhatsApp üzerinden ürün ve satışa çıkış bilgisi alabilirsin.",
+  paymentReady: "Ödeme, bağlantıda açılan sağlayıcının sayfasında tamamlanır. Stok ve teslimat bilgilerini satın almadan önce teyit et.",
+  askMessage: "Merhaba DASE, bu mozaik hakkında bilgi alabilir miyim?", artistMessage: "Merhaba DASE, İrem ve mozaik üretim süreci hakkında bilgi almak istiyorum.", image: "Görsel"
+});
+Object.assign(copy.en, {
+  artistLabel: "MEET THE ARTIST", artistBio: "Explore the coaster-sized mosaics designed by İrem for DASE. Contact us to learn more about the artist and the making process.",
+  artistContact: "Ask about the artist", byArtist: "Artist: İrem", pay: "Buy with payment link", askProduct: "Ask on WhatsApp",
+  related: "Explore other mosaics", allProducts: "View the full collection", preview: "Illustrative mosaic drawing · Product photos coming soon.",
+  detailsSoon: "Part of İrem’s coaster-sized mosaic collection. Product photographs, dimensions and material details are being prepared. Contact us for more information.",
+  paymentSoon: "Online payment is not available yet. Ask us on WhatsApp about this piece and its release.",
+  paymentReady: "Payment is completed on the provider’s linked page. Confirm availability and delivery before purchasing.",
+  askMessage: "Hello DASE, could you tell me more about this mosaic?", artistMessage: "Hello DASE, I would like to learn more about İrem and the mosaic making process.", image: "Image"
+});
+
+function whatsappLink(message) {
+  return "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
+}
+
+function paymentLink(product) {
+  if (!purchasable(product) || !product.paymentUrl) return null;
+  try {
+    const url = new URL(product.paymentUrl);
+    return url.protocol === "https:" && !url.username && !url.password ? url.href : null;
+  } catch { return null; }
+}
+
+function openProduct(product) {
+  activeProduct = product;
+  renderProduct();
+  if (!productDialog.open) productDialog.showModal();
+  productDialog.scrollTop = 0;
+  byId("product-title").setAttribute("tabindex", "-1");
+  byId("product-title").focus({ preventScroll: true });
+}
+
+function illustration(product) {
+  const board = element("div", "mini-mosaic");
+  board.setAttribute("aria-hidden", "true");
+  const palettes = [ ["#294236", "#68816b", "#e2cc9d"], ["#d37648", "#754533", "#f2e2bc"], ["#222e25", "#e2cc9d", "#d37648"] ];
+  const seed = Math.max(0, products.findIndex(item => item.id === product.id));
+  const palette = palettes[seed % palettes.length];
+  for (let i = 0; i < 64; i++) {
+    const tile = element("span", "tile");
+    tile.style.setProperty("--tile", palette[(Math.floor(i / 8) + i % 8 + seed) % 3]);
+    tile.style.setProperty("--turn", ((i * 17 + seed) % 7 - 3) + "deg");
+    board.append(tile);
+  }
+  return board;
+}
 const catalog = new Map(products.map((product) => [product.id, product]));
 const basket = new Map();
 const productDialog = byId("product-dialog");
@@ -55,7 +110,7 @@ function formatMoney(kurus) {
 }
 
 function productName(product) {
-  return product.name[language] || product.name.tr || product.name.en || labels.piece;
+  return product.name[language] || product.name.tr || product.name.en || labels.piece + " " + product.id.slice(1);
 }
 
 function purchasable(product) {
@@ -75,7 +130,7 @@ function media(product, lazy = false) {
   const placeholder = element("span", "placeholder", product.id);
   placeholder.setAttribute("aria-hidden", "true");
   if (!product.image) {
-    wrapper.append(placeholder);
+    wrapper.append(illustration(product));
     return wrapper;
   }
   const photo = element("img");
@@ -95,16 +150,12 @@ function renderCatalog() {
     const card = element("article", "product-card");
     const body = element("div", "product-body");
     const heading = element("h3");
-    if (product.status === "draft" && !product.image) {
-      heading.textContent = productName(product) + " " + product.id.slice(1);
-    } else {
+    {
       const details = element("button", "", productName(product));
       details.type = "button";
       details.setAttribute("aria-haspopup", "dialog");
       details.addEventListener("click", () => {
-        activeProduct = product;
-        renderProduct();
-        productDialog.showModal();
+        openProduct(product);
       });
       heading.append(details);
     }
@@ -117,10 +168,25 @@ function renderCatalog() {
 function renderProduct() {
   const product = activeProduct;
   byId("product-code").textContent = product.id;
-  byId("product-image").replaceChildren(media(product));
+  const photos = [...new Set([product.image, ...(product.images || [])].filter(Boolean))];
+  const gallery = byId("product-gallery");
+  gallery.replaceChildren();
+  const showImage = (index) => {
+    byId("product-image").replaceChildren(media({ ...product, image: photos[index] || "" }));
+    [...gallery.children].forEach((button, i) => button.setAttribute("aria-pressed", String(i === index)));
+  };
+  photos.forEach((src, index) => {
+    const button = element("button", "", labels.image + " " + (index + 1));
+    button.type = "button";
+    button.addEventListener("click", () => showImage(index));
+    gallery.append(button);
+  });
+  gallery.hidden = photos.length < 2;
+  showImage(0);
+  byId("product-visual-note").textContent = photos.length ? "" : labels.preview;
   byId("product-title").textContent = productName(product);
   const description = byId("product-description");
-  description.textContent = product.description[language] || product.description.tr || product.description.en;
+  description.textContent = product.description[language] || product.description.tr || product.description.en || labels.detailsSoon;
   description.hidden = !description.textContent;
   const size = byId("product-size");
   size.textContent = product.size ? labels.size + " " + product.size : "";
@@ -129,6 +195,28 @@ function renderProduct() {
   const add = byId("product-add");
   add.hidden = !purchasable(product);
   add.disabled = (basket.get(product.id) || 0) >= product.stock;
+  const payment = byId("product-payment");
+  const paymentUrl = paymentLink(product);
+  payment.hidden = !paymentUrl;
+  payment.removeAttribute("href");
+  if (paymentUrl) payment.href = paymentUrl;
+  byId("product-payment-note").textContent = paymentUrl ? labels.paymentReady : labels.paymentSoon;
+  const contact = byId("product-whatsapp");
+  contact.hidden = !canContact;
+  contact.removeAttribute("href");
+  if (canContact) contact.href = whatsappLink(labels.askMessage + "\n" + product.id + " · " + productName(product));
+  const related = byId("related-products");
+  related.replaceChildren();
+  const others = products.filter(item => item.id !== product.id);
+  const start = products.indexOf(product) % Math.max(1, others.length);
+  const suggestions = [...others.slice(start), ...others.slice(0, start)].slice(0, 3);
+  suggestions.forEach(item => {
+    const button = element("button", "related-card");
+    button.type = "button";
+    button.append(media(item, true), element("span", "", productName(item)));
+    button.addEventListener("click", () => openProduct(item));
+    related.append(button);
+  });
 }
 
 function restoreBasket() {
@@ -237,6 +325,11 @@ function setLanguage(next) {
   }
   renderCatalog();
   renderBasket();
+  byId("artist-contact").hidden = !canContact;
+  if (canContact) byId("artist-contact").href = whatsappLink(labels.artistMessage);
+  document.title = (language === "tr" ? "Sanat" : "Art") + " — DASE Coffee";
+  byId("product-gallery").setAttribute("aria-label", language === "tr" ? "Görsel galerisi" : "Image gallery");
+  if (activeProduct) renderProduct();
 }
 
 function renderIllustration() {
@@ -261,6 +354,11 @@ byId("product-add").addEventListener("click", () => {
   productDialog.close();
 });
 byId("basket-open").addEventListener("click", () => basketDialog.showModal());
+byId("product-artist").addEventListener("click", () => productDialog.close());
+byId("browse-collection").addEventListener("click", () => {
+  productDialog.close();
+  byId("koleksiyon").scrollIntoView({ behavior: "smooth" });
+});
 for (const button of document.querySelectorAll("[data-lang]")) {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 }

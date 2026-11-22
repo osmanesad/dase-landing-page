@@ -55,6 +55,11 @@
       <noscript>Mozaik koleksiyonunu görüntülemek için JavaScript’i açın.</noscript>
       <div class="product-grid" id="products"></div>
     </section>
+    <section class="artist-section" id="sanatci" aria-labelledby="artist-heading">
+      <p class="eyebrow" data-copy="artistLabel">SANATÇIYLA TANIŞ</p>
+      <div><h2 id="artist-heading">İrem</h2><p data-copy="artistBio">İrem’in DASE için tasarladığı bardak altlığı boyutundaki mozaikleri keşfet. Sanatçı ve üretim süreci hakkında daha fazla bilgi için bize yaz.</p>
+      <a id="artist-contact" class="action" target="_blank" rel="noopener noreferrer" data-copy="artistContact">Sanatçı hakkında bilgi al</a></div>
+    </section>
   </main>
 
   <footer>
@@ -69,11 +74,24 @@
       <form method="dialog"><button class="close" data-aria="close" aria-label="Kapat">×</button></form>
     </div>
     <div id="product-image"></div>
+    <div id="product-gallery" class="gallery-controls" aria-label="Görsel galerisi"></div>
+    <p class="visual-note" id="product-visual-note"></p>
     <h2 id="product-title"></h2>
     <p id="product-description"></p>
     <p id="product-size"></p>
     <p id="product-price"></p>
+    <p class="product-artist"><a href="#sanatci" id="product-artist" data-copy="byArtist">Sanatçı: İrem</a></p>
+    <div class="product-actions">
     <button id="product-add" class="action primary" type="button" data-copy="add">Sepete ekle</button>
+    <a id="product-payment" class="action primary" target="_blank" rel="noopener noreferrer" hidden data-copy="pay">Ödeme linkiyle satın al</a>
+    <a id="product-whatsapp" class="action" target="_blank" rel="noopener noreferrer" data-copy="askProduct">WhatsApp’tan bilgi al</a>
+    </div>
+    <p class="order-note" id="product-payment-note"></p>
+    <section class="related-section" aria-labelledby="related-title">
+      <h3 id="related-title" data-copy="related">Diğer mozaiklere göz at</h3>
+      <div id="related-products" class="related-products"></div>
+    </section>
+    <button id="browse-collection" class="action" type="button" data-copy="allProducts">Tüm koleksiyonu gör</button>
   </dialog>
 
   <dialog id="basket-dialog" aria-labelledby="basket-title">
