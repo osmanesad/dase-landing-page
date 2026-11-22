@@ -1,5 +1,11 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Sinyal görünürlüğü
+
+- “Yakında” ışığı 16 piksele büyütüldü; koyu zeminden ayrılan parlak yeşil renk, aydınlık/koyu döngü ve dışa yayılan halka eklendi.
+- Azaltılmış hareket kuralının ışığı tamamen durdurması yerine daha yavaş ışık döngüsü kullanıldı; bu tercihte yayılan halka hareket etmez.
+- Eski CSS’nin önbellekten gelmesini önlemek için Sanat sayfasının stil bağlantısına sürüm eklendi. Görsel tarayıcı doğrulaması yapılmadı.
+
 ## 23 Kasım 2026 — Yakında sinyal ışığı
 
 - Sanat sayfasındaki “Yakında” etiketinin yanına yuvarlak, turuncu bir sinyal ışığı eklendi. Parlaklığı 2,4 saniyelik yumuşak döngüyle değişir.
