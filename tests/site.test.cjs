@@ -85,12 +85,20 @@ test('home: all three Art entry points, translations and malformed saved languag
     assert.equal(groups[0].textContent, groups[1].textContent);
     assert.equal(groups[1].getAttribute('aria-hidden'), 'true');
     const reducedMotion = [...d.styleSheets[0].cssRules].find(rule => rule.conditionText?.replace(/\s/g, '') === '(prefers-reduced-motion:reduce)');
-    assert(reducedMotion && [...reducedMotion.cssRules].some(rule => rule.selectorText === '.ticker-track' && rule.style.animation === 'none'));
+    assert(reducedMotion && [...reducedMotion.cssRules].some(rule => rule.selectorText === '.ticker-track' && rule.style.getPropertyValue('animation-duration') === '66s'));
+    assert.equal(track.style.animationPlayState, 'running');
+    click(d, '#ticker-toggle');
+    assert.equal(track.style.animationPlayState, 'paused');
+    assert.equal(d.querySelector('#ticker-toggle').getAttribute('aria-pressed'), 'true');
     for (const lang of ['en', 'tr']) {
       click(d, `[data-lang="${lang}"]`);
       assert.equal(d.documentElement.lang, lang);
       for (const node of d.querySelectorAll('[data-i18n]')) assert(node.textContent.trim());
+      assert.equal(track.style.animationPlayState, 'paused');
+      assert.equal(d.querySelector('#ticker-toggle').textContent, lang === 'en' ? 'PLAY' : 'OYNAT');
     }
+    click(d, '#ticker-toggle');
+    assert.equal(track.style.animationPlayState, 'running');
     assert.equal(errors.length, 0);
     dom.window.close();
   }

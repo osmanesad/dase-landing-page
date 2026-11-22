@@ -65,6 +65,9 @@
     .ticker-track{display:flex;width:max-content;animation:ticker-scroll 22s linear infinite;font:500 13px/1 "Manrope",Arial,sans-serif;letter-spacing:.08em;will-change:transform}
     .ticker-group{flex:none;min-width:100vw;padding-right:1em}
     @keyframes ticker-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+    .ticker{position:relative}
+    .ticker-toggle{position:absolute;right:0;top:0;bottom:0;min-width:100px;padding:8px 16px;background:var(--orange);color:var(--ink);border:0;border-left:1px solid var(--line);font:600 12px "Manrope",Arial,sans-serif;cursor:pointer;z-index:1}
+    .ticker-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:-4px}
 
     .section{padding:clamp(72px,9vw,140px) var(--pad);border-bottom:1px solid var(--line)}
     .section-head{display:grid;grid-template-columns:.45fr 1.55fr;gap:30px;margin-bottom:72px}
@@ -108,7 +111,7 @@
     .card:hover{transform:none;background:rgba(52,76,64,.055)}
     .footer-links a:hover,nav a:hover{color:var(--orange)}
     [id]{scroll-margin-top:90px}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}*{transition:none!important}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation-duration:66s}*{transition:none!important}}
     @media(max-width:600px){
       header{padding:14px 20px}.brand{font-size:22px}main{padding-top:58px}
       .hero-main{min-height:68vh;padding-top:55px;padding-bottom:28px}
@@ -172,7 +175,7 @@
       </aside>
     </section>
 
-    <div class="ticker" aria-label="Kahve, kitaplar, sanat, Beyoğlu"><div class="ticker-track" data-i18n="ticker"><span class='ticker-group'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span><span class='ticker-group' aria-hidden='true'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span></div></div>
+    <div class="ticker" aria-label="Kahve, kitaplar, sanat, Beyoğlu"><div class="ticker-track" data-i18n="ticker"><span class='ticker-group'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span><span class='ticker-group' aria-hidden='true'>KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · KAHVE · KİTAPLAR · SANAT · BEYOĞLU · </span></div><button class="ticker-toggle" id="ticker-toggle" type="button" aria-pressed="false">DURDUR</button></div>
 
     <section class="section" id="about">
       <div class="section-head">
@@ -223,6 +226,17 @@
     <div class="footer-bottom mono"><span>© 2026 DASE COFFEE</span><span data-i18n="footerTags">KAHVE · KİTAPLAR · SANAT</span><span data-i18n="footerLocation">BEYOĞLU, İSTANBUL</span></div>
   </footer>
   <script>
+    let tickerPaused = false;
+    function updateTickerControl(lang) {
+      const button = document.getElementById("ticker-toggle");
+      button.textContent = lang === "en" ? (tickerPaused ? "PLAY" : "PAUSE") : (tickerPaused ? "OYNAT" : "DURDUR");
+      button.setAttribute("aria-pressed", String(tickerPaused));
+      document.querySelector(".ticker-track").style.animationPlayState = tickerPaused ? "paused" : "running";
+    }
+    document.getElementById("ticker-toggle").addEventListener("click", () => {
+      tickerPaused = !tickerPaused;
+      updateTickerControl(document.documentElement.lang);
+    });
     const translations = {
       tr: {
         title: "DASE Coffee — Beyoğlu, İstanbul",
@@ -279,6 +293,8 @@
       });
       document.querySelector(".lang").setAttribute("aria-label", lang === "tr" ? "Dil seçimi" : "Language selection");
       document.querySelector("nav").setAttribute("aria-label", lang === "tr" ? "Ana menü" : "Main navigation");
+      document.querySelector(".ticker").setAttribute("aria-label", lang === "tr" ? "Kahve, kitaplar, sanat, Beyoğlu" : "Coffee, books, art, Beyoğlu");
+      updateTickerControl(lang);
       try {
         localStorage.setItem("dase-language", lang);
       } catch (error) {

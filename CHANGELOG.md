@@ -1,5 +1,11 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Kayan yazının durması
+
+- Ana sayfada azaltılmış hareket tercihinin kayan yazıyı tamamen durduran kuralı değiştirildi. Normal hız 22 saniye; azaltılmış hareket tercihinde daha yavaş, 66 saniyelik döngü kullanılır.
+- Ziyaretçinin animasyonu durdurup yeniden başlatabileceği Türkçe/İngilizce düğme eklendi. Dil değişiminde duraklatma durumu korunur.
+- Animasyon ayarı, yavaşlatılmış döngü ve durdur/oynat etkileşimleri test edildi. Gerçek tarayıcıda görsel doğrulama yapılmadı.
+
 ## 23 Kasım 2026 — Karma eser sıralaması
 
 - “Tüm sanatçılar” listesi Beyza, İrem ve Ayşegül’den birer eser dönüşümlü gösterecek şekilde düzenlendi. Mozaiklerin listenin başında toplu görünmesi giderildi.
