@@ -77,6 +77,13 @@ test('home: all three Art entry points, translations and malformed saved languag
     const { dom, d, errors } = page('index.html', { saved });
     assert.equal(d.documentElement.lang, saved === 'en' ? 'en' : 'tr');
     assert.equal(d.querySelectorAll('a[href="art/index.html"]').length, 3);
+    for (const id of ['coffee', 'books']) {
+      const card = d.getElementById(id);
+      assert.equal(card.tagName, 'ARTICLE');
+      assert(card.querySelector('.pending-signal'));
+      assert(card.querySelector('.pending-copy').textContent.trim());
+      assert(!card.querySelector('.arrow-icon'));
+    }
     const track = d.querySelector('.ticker-track');
     const animation = d.defaultView.getComputedStyle(track).animation.split(/\s+/).sort();
     assert.deepEqual(animation, ['ticker-scroll', '22s', 'linear', 'infinite'].sort());
@@ -84,8 +91,8 @@ test('home: all three Art entry points, translations and malformed saved languag
     assert.equal(groups.length, 2);
     assert.equal(groups[0].textContent, groups[1].textContent);
     assert.equal(groups[1].getAttribute('aria-hidden'), 'true');
-    const reducedMotion = [...d.styleSheets[0].cssRules].find(rule => rule.conditionText?.replace(/\s/g, '') === '(prefers-reduced-motion:reduce)');
-    assert(reducedMotion && [...reducedMotion.cssRules].some(rule => rule.selectorText === '.ticker-track' && rule.style.getPropertyValue('animation-duration') === '66s'));
+    const reducedMotion = [...d.styleSheets[0].cssRules].filter(rule => rule.conditionText?.replace(/\s/g, '') === '(prefers-reduced-motion:reduce)');
+    assert(reducedMotion.some(media => [...media.cssRules].some(rule => rule.selectorText === '.ticker-track' && rule.style.getPropertyValue('animation-duration') === '66s')));
     assert.equal(track.style.animationPlayState, 'running');
     click(d, '#ticker-toggle');
     assert.equal(track.style.animationPlayState, 'paused');
@@ -94,6 +101,7 @@ test('home: all three Art entry points, translations and malformed saved languag
       click(d, `[data-lang="${lang}"]`);
       assert.equal(d.documentElement.lang, lang);
       for (const node of d.querySelectorAll('[data-i18n]')) assert(node.textContent.trim());
+      assert.equal(d.querySelector('#coffee [data-i18n="preparing"]').textContent, lang === 'en' ? 'COMING SOON' : 'HAZIRLANIYOR');
       assert.equal(track.style.animationPlayState, 'paused');
       assert.equal(d.querySelector('#ticker-toggle').textContent, lang === 'en' ? 'PLAY' : 'OYNAT');
     }

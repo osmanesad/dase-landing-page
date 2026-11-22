@@ -1,5 +1,11 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Kahve ve Kitaplar hazırlanıyor
+
+- Ana sayfadaki Kahve ve Kitaplar kartlarına Türkçe/İngilizce “Hazırlanıyor” etiketi, yanıp sönen sinyal ve bölüme özel yakında açıklaması eklendi.
+- Tıklama beklentisi yaratan oklar ve kart hover vurgusu bu iki karttan kaldırıldı. Menü bağlantıları aynı sayfadaki ilgili karta gider; hedef kart arka planla belirginleşir. Sanat bağlantıları ayrı sayfayı açmaya devam eder.
+- Yeni sayfa eklenmedi; mevcut ana sayfa akışı korundu.
+
 ## 23 Kasım 2026 — Sinyal görünürlüğü
 
 - “Yakında” ışığı 16 piksele büyütüldü; koyu zeminden ayrılan parlak yeşil renk, aydınlık/koyu döngü ve dışa yayılan halka eklendi.

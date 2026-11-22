@@ -84,6 +84,14 @@
     .arrow-down{transform:rotate(90deg)}
     .arrow-up{transform:rotate(-45deg)}
     .card>.arrow-icon{font-size:28px}
+    .card-pending{display:grid;gap:10px;margin-top:28px;border-top:1px solid var(--line);padding-top:18px}
+    .pending-label{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;letter-spacing:.04em}
+    .pending-signal{width:12px;height:12px;flex:none;border-radius:50%;border:1px solid #9d411c;background:#e9834d;animation:pending-pulse 1.8s ease-in-out infinite}
+    @keyframes pending-pulse{0%,45%,100%{background:#e9834d;box-shadow:0 0 0 4px #e9834d25,0 0 10px #e9834d77}60%,85%{background:#934425;box-shadow:0 0 0 transparent}}
+    .card .pending-copy{font-size:14px;line-height:1.5}
+    article.card:hover{background:transparent}
+    #coffee:target,#books:target{background:var(--paper-2)}
+    @media(prefers-reduced-motion:reduce){.pending-signal{animation-duration:3.6s}}
 
     .manifesto{display:grid;grid-template-columns:1fr 1fr;min-height:78vh;border-bottom:1px solid var(--line)}
     .manifesto-left{background:var(--green);color:white;padding:var(--pad);display:flex;flex-direction:column;justify-content:space-between}
@@ -183,8 +191,8 @@
         <h2 class="section-title" data-i18n="aboutTitle">Tek bir şey olmaya çalışmıyoruz.</h2>
       </div>
       <div class="cards">
-        <article class="card" id="coffee"><span class="card-no">01.1</span><div><h3 data-i18n="coffeeTitle">kahve</h3><p data-i18n="coffeeCopy">Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
-        <article class="card" id="books"><span class="card-no">01.2</span><div><h3 data-i18n="booksTitle">kitaplar</h3><p data-i18n="booksCopy">Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.</p></div><span class='arrow-icon arrow-down' aria-hidden='true'></span></article>
+        <article class="card" id="coffee"><span class="card-no">01.1</span><div><h3 data-i18n="coffeeTitle">kahve</h3><p data-i18n="coffeeCopy">Espresso, V60 ve özenle seçilmiş çekirdekler. Her fincanda biraz daha vakit.</p></div><div class="card-pending"><span class="pending-label"><span class="pending-signal" aria-hidden="true"></span><span data-i18n="preparing">HAZIRLANIYOR</span></span><p class="pending-copy" data-i18n="coffeePreparing">Kahve menümüz hazırlanıyor. Çekirdeklerimiz ve menü detayları yakında burada.</p></div></article>
+        <article class="card" id="books"><span class="card-no">01.2</span><div><h3 data-i18n="booksTitle">kitaplar</h3><p data-i18n="booksCopy">Edebiyat, sanat ve tasarım. Raflarda keşfedilmeyi bekleyen kitaplar.</p></div><div class="card-pending"><span class="pending-label"><span class="pending-signal" aria-hidden="true"></span><span data-i18n="preparing">HAZIRLANIYOR</span></span><p class="pending-copy" data-i18n="booksPreparing">Kitap seçkimiz hazırlanıyor. Raflarımızdan öneriler ve kitap detayları yakında burada.</p></div></article>
         <a class="card" id="art" href="art/index.html"><span class="card-no">01.3</span><div><h3 data-i18n="artTitle">sanat</h3><p data-i18n="artCopy">Beyza, İrem ve Ayşegül’den suluboya kartpostallar, mozaikler, tuval resimleri ve sana özel çalışmalar.</p></div><span class='arrow-icon' aria-hidden='true'></span></a>
       </div>
     </section>
@@ -242,6 +250,7 @@
         title: "DASE Coffee — Beyoğlu, İstanbul",
         description: "DASE Coffee — Beyoğlu, İstanbul'da kahve, kitap ve sanat.",
         navAbout: "HAKKIMIZDA", navCoffee: "KAHVE", navBooks: "KİTAPLAR", navArt: "SANAT", navVisit: "ZİYARET",
+        preparing: "HAZIRLANIYOR", coffeePreparing: "Kahve menümüz hazırlanıyor. Çekirdeklerimiz ve menü detayları yakında burada.", booksPreparing: "Kitap seçkimiz hazırlanıyor. Raflarımızdan öneriler ve kitap detayları yakında burada.",
         heroEyebrow: "BEYOĞLU, İSTANBUL · 2026'DA AÇILIYOR",
         heroCopy: "Kahve içmek, kitaplara bakmak, yeni şeyler keşfetmek ve biraz daha kalmak için bir yer.",
         heroMeta: "KAHVE / KİTAP / SANAT<br>ATÖLYELER / OBJELER / İNSANLAR",
@@ -261,6 +270,7 @@
         title: "DASE Coffee — Beyoğlu, Istanbul",
         description: "DASE Coffee — coffee, books and art in Beyoğlu, Istanbul.",
         navAbout: "ABOUT", navCoffee: "COFFEE", navBooks: "BOOKS", navArt: "ART", navVisit: "VISIT",
+        preparing: "COMING SOON", coffeePreparing: "Our coffee menu is taking shape. Beans and menu details will be here soon.", booksPreparing: "Our book selection is taking shape. Recommendations and book details will be here soon.",
         heroEyebrow: "BEYOĞLU, ISTANBUL · OPENING IN 2026",
         heroCopy: "A place for coffee, browsing books, discovering new things and staying a little longer.",
         heroMeta: "COFFEE / BOOKS / ART<br>WORKSHOPS / OBJECTS / PEOPLE",
