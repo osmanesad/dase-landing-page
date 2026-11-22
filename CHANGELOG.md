@@ -1,5 +1,10 @@
 # Değişiklikler ve denetim
 
+## 23 Kasım 2026 — Yakında sinyal ışığı
+
+- Sanat sayfasındaki “Yakında” etiketinin yanına yuvarlak, turuncu bir sinyal ışığı eklendi. Parlaklığı 2,4 saniyelik yumuşak döngüyle değişir.
+- Işık dekoratiftir; ekran okuyuculardan gizlenir. Azaltılmış hareket tercihinde sabit görünür. Türkçe/İngilizce etiket değişirken yerinde kalır.
+
 ## 23 Kasım 2026 — Kayan yazının durması
 
 - Ana sayfada azaltılmış hareket tercihinin kayan yazıyı tamamen durduran kuralı değiştirildi. Normal hız 22 saniye; azaltılmış hareket tercihinde daha yavaş, 66 saniyelik döngü kullanılır.

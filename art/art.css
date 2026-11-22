@@ -161,6 +161,11 @@ body:has(dialog[open]) { overflow:hidden; }
 .hero-links { display:flex; gap:12px; flex-wrap:wrap; }
 .preparation-notice { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:24px; padding:26px var(--pad); background:var(--green); color:var(--paper); border-bottom:1px solid var(--line); }
 .preparation-notice .eyebrow { font-size:14px; padding-top:5px; }
+.preparation-signal { display:inline-block; flex:none; width:10px; height:10px; border-radius:50%; background:#e9834d; box-shadow:0 0 7px #e9834d88; animation:preparation-pulse 2.4s ease-in-out infinite; }
+@keyframes preparation-pulse {
+  0%, 100% { opacity:.45; box-shadow:0 0 3px #e9834d44,0 0 0 0 #e9834d00; }
+  50% { opacity:1; box-shadow:0 0 10px #e9834dcc,0 0 0 6px #e9834d18; }
+}
 .preparation-notice h2 { font-size:clamp(22px,2.5vw,32px); line-height:1.2; letter-spacing:-.035em; margin-bottom:10px; }
 .preparation-notice p:last-child { margin:0; max-width:920px; font-size:16px; line-height:1.6; }
 @media(max-width:600px) { .preparation-notice { grid-template-columns:1fr; gap:10px; padding-top:22px; padding-bottom:22px; } }
